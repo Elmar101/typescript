@@ -54,10 +54,13 @@ defaultValue(2);
 defaultValue(2, 4);
 function display(a, b) {
     console.log("a is ", a);
-    console.log("a is ", b);
+    if (b != undefined) {
+        console.log("a is ", b);
+    }
 }
 display(34);
 display(34, 21);
+display("34");
 //array distructuring tuple
 var arr = [35, 21];
 var x = arr[0], y = arr[1];
@@ -95,10 +98,15 @@ var fn = UnionData.commentLine;
 //union olmasaydi UnionData.commentLine() yazmaq olardi 
 console.log(fn());
 var arrNumberIndex = ["Bob", "Fred"];
+var obj = {
+    1: "elmar",
+    2: " amanov"
+};
 console.log("myArray: " + arrNumberIndex);
 console.log("myArray[0]: " + arrNumberIndex[0]);
 console.log("myArray[1]: " + arrNumberIndex[1]);
 var myIndexArr = arrNumberIndex[0];
+//---------------------------indexable interface --------------------//
 /*/
 interface indexableType {
     [index: string]: string;
@@ -126,3 +134,71 @@ var arrList = (_b = {},
 console.log("arrList", arrList);
 console.log("arrList['name']: ", arrList['name']);
 console.log("arrList['name']: ", arrList.name);
+var drummer = {
+    age: 25,
+    name: "Elmar"
+};
+var naq = {
+    age: 25,
+    name: "Elmar"
+};
+var gitar = {};
+gitar.age = 25;
+gitar.name = " Eldar";
+;
+var nm = { v1: 1, v2: 2 };
+console.log("v1: " + nm.v1 + " v2: " + nm.v2);
+// typecasting numberDataName: number = <number><any>stringDataName;
+var str = '12';
+var num = str;
+var b = 2 >= num ? "2 -i 12 den boyukdur" : "12 - i 2 den boyukdur";
+console.log("typeof num is ", typeof num);
+//----------------------Class -----------------------------//
+/*/
+    static açar sözi ile yaranan dəyişkən classin özine mexsusdu
+    classdan yaranan objecte ve ya this anahtar kelmesinə aidiyatı
+    yoxdur
+    ex class A { static a = 12 }
+       a1 = new A();
+       a1.a = undefined => çünki bizneü A ile object yaratdiqda
+       data A nin constructoruna aid olur  ve biz burdan A classina
+       uyqun datalari ötiririk
+       this isə A classindan yaranan objecti sadece this = {}
+/*/
+var a = 55;
+var classData = /** @class */ (function () {
+    function classData() {
+        var _this = this;
+        this.x = 12;
+        this.storeData = function () { return this.x; };
+        this.diffrence = function () { return _this.x - classData.s; };
+    }
+    classData.prototype.sumnumber = function () { return this.x + classData.s; };
+    classData.s = 123;
+    return classData;
+}());
+var class1 = new classData();
+console.log("static s: " + classData.s);
+// --------------------example prototype ---------------------------//
+function Employee(id, name) {
+    this.id = id;
+    this.name = name;
+}
+Employee.prototype.sname = "Amanov";
+var employee1 = new Employee(1, "Elmar");
+console.log("info of employee1 => ", employee1.id + " : ", employee1.name, employee1.sname);
+//-------------------- enum custom type ----------------------------//
+var Role;
+(function (Role) {
+    Role[Role["ADMIN"] = 100] = "ADMIN";
+    Role[Role["READ_ONLY"] = 300] = "READ_ONLY";
+    Role["AUTHOR"] = "AUTHOR";
+})(Role || (Role = {}));
+var person = {
+    name: "Admin",
+    password: "password",
+    role: Role.ADMIN
+};
+if (person.role === Role.ADMIN) {
+    console.log("i am a admin");
+}
