@@ -117,7 +117,66 @@ let fn: any=  UnionData.commentLine;
 //commentLine union datadi 
 //union olmasaydi UnionData.commentLine() yazmaq olardi 
 console.log( fn() )
+//error Operator '+' cannot be applied to types 'string | number' and 'string | number'
+function combine (n1: number | string, n2: number | string){
+    let result: number | string ;
+    if(n1 === "number" && n2 === "number"){ result = n1 + n2; }
+    else { result = n1 as string + n2 as string; }
+    // else { result = <string>n1 + <string>n2  }
+    //else { result = n1.toString() + n2.toString() }
+    return  result
 
+}
+
+console.log( "combine result is : ", combine(1,2) );
+console.log( "combine result is : ", combine("Elmar ","Amanov") );
+
+//------------------------------Literal Type  --------------------//
+
+function literalRes (
+    n1: number | string,
+    n2: number | string,
+    literalTypeData: "num" | "str"){
+    let result: number | string ;
+    if(typeof n1 === "number" && typeof n2 === "number" 
+           || literalTypeData === "num"){ 
+        result = +n1 + +n2;
+    }
+    else { result = n1 as string + n2 as string; }
+    // else { result = <string>n1 + <string>n2  }
+    //else { result = n1.toString() + n2.toString() }
+    return  result
+
+}
+
+console.log( "literalRes result is : ", literalRes(1,2,'num') );
+console.log( "literalRes result is : ", literalRes("1","2",'num') );
+console.log( "literalRes result is : ", literalRes("Elmar ","Amanov","str") );
+
+//-------------------- type -------------------------------------------//
+
+type NUM_STR =  number | string;
+type literalResType =  "num" | "str";
+
+function typeResalt (
+    n1: NUM_STR,
+    n2: NUM_STR,
+    literalTypeData: literalResType){
+    let result: number | string ;
+    if(typeof n1 === "number" && typeof n2 === "number" 
+           || literalTypeData === "num"){ 
+        result = +n1 + +n2;
+    }
+    else { result = n1 as string + n2 as string; }
+    // else { result = <string>n1 + <string>n2  }
+    //else { result = n1.toString() + n2.toString() }
+    return  result
+
+}
+
+console.log( "typeResalt result is : ", typeResalt(1,2,'num') );
+console.log( "typeResalt result is : ", typeResalt("1","2",'num') );
+console.log( "typeResalt result is : ", typeResalt("Elmar ","Amanov","str") );
 //---------------------------indexable interface --------------------//
 //interface and array => Indexable Types
 
@@ -297,3 +356,19 @@ const person = {
 }
 
 if(person.role === Role.ADMIN) { console.log("i am a admin") }
+
+// ---------------------type Function  ------------------------//
+function combineFn(n1: number,n2: number): number { return n1 + n2; }
+
+let combineData: Function;
+combineData = combineFn;
+
+console.log("combineData is ", combineData(5,5) )
+
+// -------------------- arrow function type --------------------//
+
+let combineValue: (a: number,b: number) => number;
+
+combineValue = combineFn;
+
+console.log("combineValue is ", combineValue(5,5) )

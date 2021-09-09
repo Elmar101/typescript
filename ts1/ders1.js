@@ -97,6 +97,54 @@ var fn = UnionData.commentLine;
 //commentLine union datadi 
 //union olmasaydi UnionData.commentLine() yazmaq olardi 
 console.log(fn());
+//error Operator '+' cannot be applied to types 'string | number' and 'string | number'
+function combine(n1, n2) {
+    var result;
+    if (n1 === "number" && n2 === "number") {
+        result = n1 + n2;
+    }
+    else {
+        result = n1 + n2;
+    }
+    // else { result = <string>n1 + <string>n2  }
+    //else { result = n1.toString() + n2.toString() }
+    return result;
+}
+console.log("combine result is : ", combine(1, 2));
+console.log("combine result is : ", combine("Elmar ", "Amanov"));
+//------------------------------Literal Type  --------------------//
+function literalRes(n1, n2, literalTypeData) {
+    var result;
+    if (typeof n1 === "number" && typeof n2 === "number"
+        || literalTypeData === "num") {
+        result = +n1 + +n2;
+    }
+    else {
+        result = n1 + n2;
+    }
+    // else { result = <string>n1 + <string>n2  }
+    //else { result = n1.toString() + n2.toString() }
+    return result;
+}
+console.log("literalRes result is : ", literalRes(1, 2, 'num'));
+console.log("literalRes result is : ", literalRes("1", "2", 'num'));
+console.log("literalRes result is : ", literalRes("Elmar ", "Amanov", "str"));
+function typeResalt(n1, n2, literalTypeData) {
+    var result;
+    if (typeof n1 === "number" && typeof n2 === "number"
+        || literalTypeData === "num") {
+        result = +n1 + +n2;
+    }
+    else {
+        result = n1 + n2;
+    }
+    // else { result = <string>n1 + <string>n2  }
+    //else { result = n1.toString() + n2.toString() }
+    return result;
+}
+console.log("typeResalt result is : ", typeResalt(1, 2, 'num'));
+console.log("typeResalt result is : ", typeResalt("1", "2", 'num'));
+console.log("typeResalt result is : ", typeResalt("Elmar ", "Amanov", "str"));
 var arrNumberIndex = ["Bob", "Fred"];
 var obj = {
     1: "elmar",
@@ -202,3 +250,12 @@ var person = {
 if (person.role === Role.ADMIN) {
     console.log("i am a admin");
 }
+// ---------------------type Function  ------------------------//
+function combineFn(n1, n2) { return n1 + n2; }
+var combineData;
+combineData = combineFn;
+console.log("combineData is ", combineData(5, 5));
+// -------------------- arrow function type --------------------//
+var combineValue;
+combineValue = combineFn;
+console.log("combineValue is ", combineValue(5, 5));
