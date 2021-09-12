@@ -31,4 +31,5 @@ let age: number = 40;
 if(age >= 18){
     var txt = "yashiniz chatir qaqa !"
 }
-console.log(txt);//"yashiniz chatir qaqa !"
+console.log(txt);//"yashiniz chatir qaqa !";
+
