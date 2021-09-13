@@ -15,6 +15,12 @@ class Department {
         this._name = name;
     }
 }
+
+let accounting = new Department("Accounting"); 
+let programming = new Department("Front-End");
+
+console.log("accounting.name -- ",  accounting._name);
+console.log("programming.name -- ", programming._name);
 /*/
     new - Açar sözi Class dan bir Object yaradir yeni bir misalin yaradir 
     class yaranarken ilk öncə onun constructor metodu call olur ve classa
@@ -23,11 +29,6 @@ class Department {
     this ={_name: name}
     bu this de classdan yaranan objecti evez edir  
 /*/
-let accounting = new Department("Accounting"); 
-let programming = new Department("Front-End");
-
-console.log("accounting.name -- ",  accounting._name);
-console.log("programming.name -- ", programming._name);
 /*/
     new ile biz Department Classindan iki eded Object yaratdiq yeni Classin missalini instansini yaratdiq
 
@@ -41,4 +42,20 @@ console.log("programming.name -- ", programming._name);
     //let programming = new Department("Front-End"); this = programming
     //console.log("accounting.name -- ",  accounting._name); this = accounting
 }
+/*/
+
+/*/ js de classin qarsiliqi
+
+    var Department =  function () {
+        function Department(name) {
+            this._name = name;
+        }
+        return Department;
+    }();
+
+=> izah ts de Class {} bu bloku yaradir js de bu bloku {}  adsiz funuksia ilə yarada bilərik 
+   ts - class Department {p1: string}  <===> js - let Department = function () {}
+        Department.constructor(p1){this.p = p1} <===> function Department(p1){this.p = p1}
+        class da this new ile yaranan Objectir 
+        functionda ise this return  Department-i evez eden bir Objecti
 /*/
