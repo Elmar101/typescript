@@ -1,3 +1,13 @@
+/*/
+    npm init => bizim üçün package.json filesini yaradir
+    npm install --save-dev lite-server => bizim üçün package-lock.json filesini yaradir
+    tsc -w
+    npm install => bizim üçün node_modules-i endirir
+    tsc --init => bizim üçün {...}tsconfig.json filesini yaradir
+    sonrada {...}tsconfig.json filesine girib bezi deyisiklikler ede bilersiz biz  "sourceMap": true,  edirik
+    "sourceMap": true => bu ise bizim üçün App.js.map filesini yaradir
+/*/
+
 class Department {
     _name: string;
 

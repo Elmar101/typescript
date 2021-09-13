@@ -14,6 +14,8 @@ console.log(
 
 console.log("npm init => edirem bir chox ts file ichin");
 
+console.log("tsc --init => {...}tsconfig.json objesini yaradiram");
+
 console.log(
   "tsc => yazsam bir chox ts fileni js filesine compile edir (chevirir) "
 );
