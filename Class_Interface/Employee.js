@@ -1,7 +1,8 @@
 var Employee = /** @class */ (function () {
-    function Employee(id, name) {
+    function Employee(id, name, salary) {
         this.id = id;
         this.name = name;
+        this.salary = salary;
         //public,private anahtar kelmelerini yazmasaq O zaman Hemin Class deyiseni public sayilir
         this.employeesFront = [];
         this.employeesBack = [];
@@ -12,14 +13,18 @@ var Employee = /** @class */ (function () {
 
             private id: number;
             public name: string;
+            private readonly salary: number;
 
-            constructor(id: number, name: string){
+            constructor(id: number, name: string,readonly salary: number){
                 this.id = id;
                 this.name = name;
+                this.salary = salary;
+
+                //readonly Class deyiseni ya o deyisen yarananda deyer atanar yada constructorin daxilinde !!!
             };
     /*/
     Employee.prototype.description = function () {
-        console.log(this.id + " - " + this.name);
+        console.log(this.id + " - " + this.name + " - " + this.salary + "azn");
     };
     Employee.prototype.addEmployeeFront = function (employeeFront) {
         this.employeesFront.push(employeeFront);
@@ -37,7 +42,7 @@ var Employee = /** @class */ (function () {
     };
     return Employee;
 }());
-var employee = new Employee(1, "Elcin");
+var employee = new Employee(1, "Elcin", 2000);
 employee.addEmployeeFront("Ali");
 employee.addEmployeeFront("Ceyhun");
 employee.employeesFront[2] = "Elmar";
