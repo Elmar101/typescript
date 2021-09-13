@@ -48,7 +48,7 @@ let programCopy = {name: "javascript" , progName: program.progName}
             - çünki program Objesinin progName bir argument alir "this" argumentini hansiki Program tipindedi 
               bizde programCopy nin progName-ni program objesinin progName ni deyer olaraq veririk 
               bu zaman programCopy Objesininde name properitisi olmasi mecburiyetindedi chunki 
-              program.progName(this:Program) bu tipde metoddu 
+              program.progName(this:Program) bu tipde metoddu  
 
 /*/
  
