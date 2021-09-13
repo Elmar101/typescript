@@ -9,6 +9,8 @@
         consolda ishlemlerin sonucunu goruruk
 /*/
 
+//let fn = function(): number ve ya let fn = () => number ikiside geriye reqem donderecek fn funuksiasi
+
 function paramsNumberArray(...nums:number[]):void{
     console.log( ...nums )
 }
@@ -78,7 +80,10 @@ unionData = 78;
 console.log("unionData number is ", unionData)
 unionData = [1,2,3,4,5]
 console.log("unionData number array is ", unionData)
-
+/*/
+    tuple type arrayin indexlerinin hansi tipde olmasi [number,number,string]
+    ex => let arr:[number,number,string] = [1,2,"Hello"]
+/*/
 // interface arayuz 
 interface IPerson {
     name: string;
@@ -86,6 +91,7 @@ interface IPerson {
     sayHi:() => string; //{ return string data } sayHi:( () => string)
     sayHello():string; // { return string data}
     changeName:()=> void;// bu sadece datani deyisecek 
+    //fn:function():string interfacede govde istifade edilmir tesuflerki bu tipde propertiye type vere bilmirik
 }
 
 let Person: IPerson = {
@@ -93,8 +99,13 @@ let Person: IPerson = {
     lName: "amanov",
     sayHello: () => {return "hello"},
     sayHi: (): string => { return " hi "} ,
-    //sayHi:function(): string { return " hello "} ,
-    //sayHi:( (): string => { return " hi "} )
+    /*/Objectlerde yalniz
+        ---------------------------------------------
+        sayHi:function(): string { return " hello "} ,
+        sayHi:( (): string => { return " hi "} )
+        sayHi:(): string => { return " hi "} 
+        sayHi (): string  { return " hi "} 
+    /*/
     changeName: () => { Person.name = "eldar"}
 }
 console.log("person info : ", Person.name, Person.lName, 
