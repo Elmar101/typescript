@@ -13,7 +13,7 @@ class User {
 let userA = new User("Elmar","Amanov"); 
 userA.fullName();
 console.log("userA consolda fullName metodunu call etmek - ", userA.fullName()); //undefined
-console.log("userA consolda tamAd metodunu call etmek - ", userA.tamAd()); //undefined
+console.log("userA consolda tamAd metodunu call etmek - ", userA.tamAd()); //Elmar Amanov
 console.log( "userA", userA)
 /*/ 
     userA User { fullName: [Function (anonymous)],tamAd: [Function (anonymous)], _name: 'Elmar',_sname: 'Amanov'}
@@ -21,6 +21,7 @@ console.log( "userA", userA)
     ama console.log( userA.tamAd()) => bu ise "Elmar Amanov" stringini return edir
 
     fullName metodu void metoddu buda yalniz Classin daxilinde Nese property qiymeti deyismeye yarayir
+    this anahtar kelmesi globalda window da name ve sname deyisenlerini axtarir ele deyisen olmaddiqi ichin undefined 
     tamAd metodu ise geriye deyer qaytarir yeni nese deyer qiymet saxlayir 
 /*/
 class Program {
@@ -48,7 +49,8 @@ let programCopy = {name: "javascript" , progName: program.progName}
             - çünki program Objesinin progName bir argument alir "this" argumentini hansiki Program tipindedi 
               bizde programCopy nin progName-ni program objesinin progName ni deyer olaraq veririk 
               bu zaman programCopy Objesininde name properitisi olmasi mecburiyetindedi chunki 
-              program.progName(this:Program) bu tipde metoddu  
+              program.progName(this:Program) bu tipde metoddu  this de burda programCopy ni evez edir
+              this = programCopy = {name: "nese...", progName(this: Program){console.log("......"),this.name}}
 
 /*/
  

@@ -7,7 +7,7 @@ class Employee {
 
     constructor(private id: number, public name: string, private readonly salary: number){};
     /*/
-        constructor(private id: number, public name: string){}; bu yazlim asaqidakini evez edir
+        constructor(private id: number, public name: string,private readonly salary: number;){}; bu yazlim asaqidakini evez edir
 
             private id: number; 
             public name: string;
