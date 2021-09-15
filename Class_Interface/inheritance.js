@@ -19,6 +19,7 @@ var Departments = /** @class */ (function () {
         this.name = name;
         this.salary = salary;
         this.departments = [];
+        this.employeers = [];
     }
     ;
     Departments.prototype.description = function () {
@@ -27,6 +28,15 @@ var Departments = /** @class */ (function () {
     Departments.prototype.printEmployeeInformations = function () {
         console.log("Departments.length = ", this.departments.length);
         console.log("Departments = ", this.departments);
+    };
+    Departments.prototype.addDepartment = function (department) {
+        this.departments.push(department);
+    };
+    Departments.prototype.addEmployeer = function (name) {
+        this.employeers.push(name);
+    };
+    Departments.prototype.printEmployeer = function () {
+        console.log("employeer = ", this.employeers);
     };
     return Departments;
 }());
@@ -55,6 +65,7 @@ var AccountingDepartment = /** @class */ (function (_super) {
     return AccountingDepartment;
 }(Departments));
 var accountsDepartments = new AccountingDepartment(2, "Accounting", ["Sevinc"]);
+accountsDepartments.addEmployeer("Ayten");
 accountsDepartments.description();
 console.log(accountsDepartments.name, " ve admin : ", accountsDepartments.admin);
 /*/
@@ -87,12 +98,19 @@ var FinanceDepartment = /** @class */ (function (_super) {
     FinanceDepartment.prototype.printReports = function () {
         console.log(this.report);
     };
+    FinanceDepartment.prototype.addEmployeer = function (name) {
+        name !== "Ayten" && this.employeers.push(name);
+        /* /  if ile yazlimi => if(name === "Ayten" ){ return; } this.employeers.push(name); / */
+    };
     return FinanceDepartment;
 }(Departments));
 var financeDepartments = new FinanceDepartment(3, []);
 financeDepartments.addReport("Finance new report look at");
 financeDepartments.printReports();
 financeDepartments.description();
+financeDepartments.addEmployeer("Ayten");
+financeDepartments.addEmployeer("Rena");
+financeDepartments.printEmployeer();
 console.log("-------------------------Finance Department information End----------------------------------");
 /*/
     eger constructor da deyisen -public private protected anahtar kelmeleri ile yazilibsa bu zaman
@@ -107,4 +125,13 @@ console.log("-------------------------Finance Department information End--------
         }
 
         //this.id = id; yaza bilmezsen çünki id global olaraq yaradilib
+/*/
+/*/
+    constructor(private id: number) => class ParentClass{ private id: number; constructor(_id:number){this.id = _id} }
+    
+    Biz eger ParentClassi miras aliriqsa extends edirikse
+    (extends genişləndirmek Bir classi götirib ona yeni xüsusiyətlər əlavə etmək)
+    bu zaman o classin public ve protected deyisenlerine ulaşa bilirik private yox
+    Ama constructor(private id: number) daki bu private id - extends olan classda superden dəyər ötrilir superdə
+    ParentClassin Constructorunu evez edir
 /*/ 

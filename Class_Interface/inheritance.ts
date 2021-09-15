@@ -2,6 +2,8 @@ class Departments {
 
     public departments: string[] = [];
 
+    protected employeers: string[] = [];
+
     constructor(private id: number, public name: string, private readonly salary: number){};
     
     description():void{
@@ -11,6 +13,18 @@ class Departments {
     printEmployeeInformations(): void {
         console.log("Departments.length = ", this.departments.length);
         console.log("Departments = ", this.departments);
+    }
+
+    addDepartment(department: string){
+        this.departments.push(department);
+    }
+
+    addEmployeer(name: string){
+        this.employeers.push(name);
+    }
+
+    printEmployeer(): void {
+        console.log("employeer = ", this.employeers)
     }
 
 }
@@ -25,7 +39,7 @@ class ITDepartment extends Departments {}
 
 let itDepartments = new ITDepartment(1,"Elcin",2000);
 
-itDepartments.description();
+    itDepartments.description();
 
 console.log("-------------------------IT Department information End----------------------------------");
 console.log("-------------------------Accounting Department information Start----------------------------------");
@@ -40,7 +54,9 @@ class AccountingDepartment extends Departments{
 
 let accountsDepartments = new AccountingDepartment(2,"Accounting",["Sevinc"]);
 
-accountsDepartments.description();
+    accountsDepartments.addEmployeer("Ayten");
+
+    accountsDepartments.description();
 
 console.log(accountsDepartments.name, " ve admin : ", accountsDepartments.admin);
 
@@ -74,15 +90,27 @@ class FinanceDepartment extends Departments{
     printReports():void{
         console.log(this.report);
     }
+
+    addEmployeer(name: string){
+        name !== "Ayten" && this.employeers.push(name);
+
+       /* /  if ile yazlimi => if(name === "Ayten" ){ return; } this.employeers.push(name); / */
+    }
 }
 
 let financeDepartments = new FinanceDepartment(3,[]);
 
-financeDepartments.addReport("Finance new report look at")
+    financeDepartments.addReport("Finance new report look at")
 
-financeDepartments.printReports();
+    financeDepartments.printReports();
 
-financeDepartments.description();
+    financeDepartments.description();
+
+    financeDepartments.addEmployeer("Ayten");
+
+    financeDepartments.addEmployeer("Rena");
+
+    financeDepartments.printEmployeer();
 
 console.log("-------------------------Finance Department information End----------------------------------");
 
@@ -100,4 +128,14 @@ console.log("-------------------------Finance Department information End--------
         }
 
         //this.id = id; yaza bilmezsen çünki id global olaraq yaradilib 
+/*/
+
+/*/
+    constructor(private id: number) => class ParentClass{ private id: number; constructor(_id:number){this.id = _id} }
+    
+    Biz eger ParentClassi miras aliriqsa extends edirikse 
+    (extends genişləndirmek Bir classi götirib ona yeni xüsusiyətlər əlavə etmək)
+    bu zaman o classin public ve protected deyisenlerine ulaşa bilirik private yox
+    Ama constructor(private id: number) daki bu private id - extends olan classda superden dəyər ötrilir superdə 
+    ParentClassin Constructorunu evez edir 
 /*/
