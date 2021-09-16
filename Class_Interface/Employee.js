@@ -1,5 +1,6 @@
-var Employee = /** @class */ (function () {
-    function Employee(id, name, salary) {
+"use strict";
+class Employee {
+    constructor(id, name, salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
@@ -9,7 +10,8 @@ var Employee = /** @class */ (function () {
     }
     ;
     /*/
-        constructor(private id: number, public name: string){}; bu yazlim asaqidakini evez edir
+        constructor(private id: number, public name: string,private readonly salary: number;){}; bu yazlim
+                                                                                                asaqidakini evez edir
 
             private id: number;
             public name: string;
@@ -23,26 +25,25 @@ var Employee = /** @class */ (function () {
                 //readonly Class deyiseni ya o deyisen yarananda deyer atanar yada constructorin daxilinde !!!
             };
     /*/
-    Employee.prototype.description = function () {
-        console.log(this.id + " - " + this.name + " - " + this.salary + "azn");
-    };
-    Employee.prototype.addEmployeeFront = function (employeeFront) {
+    description() {
+        console.log(`${this.id} - ${this.name} - ${this.salary}azn`);
+    }
+    addEmployeeFront(employeeFront) {
         this.employeesFront.push(employeeFront);
-    };
-    Employee.prototype.printEmployeeFrontInformations = function () {
+    }
+    printEmployeeFrontInformations() {
         console.log("employeesFront.length = ", this.employeesFront.length);
         console.log("employeesFront = ", this.employeesFront);
-    };
-    Employee.prototype.addEmployeeBack = function (employeeBack) {
+    }
+    addEmployeeBack(employeeBack) {
         this.employeesBack.push(employeeBack);
-    };
-    Employee.prototype.printEmployeeBackInformations = function () {
+    }
+    printEmployeeBackInformations() {
         console.log("employeesBack.length = ", this.employeesBack.length);
         console.log("employeesBack = ", this.employeesBack);
-    };
-    return Employee;
-}());
-var employee = new Employee(1, "Elcin", 2000);
+    }
+}
+let employee = new Employee(1, "Elcin", 2000);
 employee.addEmployeeFront("Ali");
 employee.addEmployeeFront("Ceyhun");
 employee.employeesFront[2] = "Elmar";

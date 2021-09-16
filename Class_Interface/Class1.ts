@@ -24,7 +24,7 @@ console.log("programming.name -- ", programming._name);
 /*/
     new - Açar sözi Class dan bir Object yaradir yeni bir misalin yaradir 
     class yaranarken ilk öncə onun constructor metodu call olur ve classa
-    gelen valueleri this Objectinin açarlarinin dəyərləri olaraq verilir 
+    gelen parametirleri this Objectinin açarlarinin dəyərləri olaraq verilir 
     yeni property: value
     this ={_name: name}
     bu this de classdan yaranan objecti evez edir  
