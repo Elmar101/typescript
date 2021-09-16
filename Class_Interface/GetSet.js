@@ -1,20 +1,6 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Organization = /** @class */ (function () {
-    function Organization(id, name, salary) {
+"use strict";
+class Organization {
+    constructor(id, name, salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
@@ -22,53 +8,45 @@ var Organization = /** @class */ (function () {
         this.employeer = [];
     }
     ;
-    Organization.prototype.description = function () { console.log(this.id + " - " + this.name + " - " + this.salary + "azn"); };
-    Organization.prototype.printOrganizationInformations = function () {
+    description() { console.log(`${this.id} - ${this.name} - ${this.salary}azn`); }
+    printOrganizationInformations() {
         console.log("Organization.length = ", this.Organization.length);
         console.log("Organization = ", this.Organization);
-    };
-    Organization.prototype.addOrganization = function (department) { this.Organization.push(department); };
-    Organization.prototype.addEmployeer = function (name) { this.employeer.push(name); };
-    Organization.prototype.printEmployeer = function () { console.log("employeer = ", this.employeer); };
-    return Organization;
-}());
-console.log("-------------------------Department information Start----------------------------------");
-var organization = new Organization(1, "Department", 2000);
-console.log("-------------------------Accounting Department information Start----------------------------------");
-var AccountingDepartments = /** @class */ (function (_super) {
-    __extends(AccountingDepartments, _super);
-    function AccountingDepartments(id, name, admin, report) {
-        var _this = _super.call(this, id, name, 2000) || this;
-        _this.admin = admin;
-        _this.report = report;
-        _this.newReport = [];
-        return _this;
     }
-    Object.defineProperty(AccountingDepartments.prototype, "recentlyReport", {
-        get: function () {
-            if (this.newReport) {
-                return this.newReport.toString();
-            }
-            throw new Error("no report foundid");
-        },
-        set: function (value) {
-            if (!value) {
-                throw new Error("Please add new Reports");
-            }
-            this.addReport(value);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    AccountingDepartments.prototype.addReport = function (text) {
+    addOrganization(department) { this.Organization.push(department); }
+    addEmployeer(name) { this.employeer.push(name); }
+    printEmployeer() { console.log("employeer = ", this.employeer); }
+}
+console.log("-------------------------Department information Start----------------------------------");
+let organization = new Organization(1, "Department", 2000);
+console.log("-------------------------Accounting Department information Start----------------------------------");
+class AccountingDepartments extends Organization {
+    constructor(id, name, admin, report) {
+        super(id, name, 2000);
+        this.admin = admin;
+        this.report = report;
+        this.newReport = [];
+    }
+    get recentlyReport() {
+        if (this.newReport) {
+            return this.newReport.toString();
+        }
+        throw new Error("no report foundid");
+    }
+    set recentlyReport(value) {
+        if (!value) {
+            throw new Error("Please add new Reports");
+        }
+        this.addReport(value);
+    }
+    addReport(text) {
         this.report.push(text);
         this.newReport.push(text);
-    };
-    AccountingDepartments.prototype.printReports = function () { console.log(this.report); };
-    AccountingDepartments.prototype.addEmployeer = function (name) { name !== "Ayten" && this.employeer.push(name); };
-    return AccountingDepartments;
-}(Organization));
-var accountOrganization = new AccountingDepartments(2, "Accounting", ["Sevinc"], []);
+    }
+    printReports() { console.log(this.report); }
+    addEmployeer(name) { name !== "Ayten" && this.employeer.push(name); }
+}
+let accountOrganization = new AccountingDepartments(2, "Accounting", ["Sevinc"], []);
 //console.log("AccountOrganization RecentlyReport",accountOrganization.recentlyReport);// no report foundid 
 //accountOrganization.recentlyReport = ""
 //accountOrganization.recentlyReport = " ' GET RECENTLY REPORT WITH SET ' "
