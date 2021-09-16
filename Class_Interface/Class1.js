@@ -8,20 +8,19 @@
     sonrada {...}tsconfig.json filesine girib bezi deyisiklikler ede bilersiz biz  "sourceMap": true,  edirik
     "sourceMap": true => bu ise bizim üçün App.js.map filesini yaradir
 /*/
-var Department = /** @class */ (function () {
-    function Department(name) {
+class Department {
+    constructor(name) {
         this._name = name;
     }
-    return Department;
-}());
-var accounting = new Department("Accounting");
-var programming = new Department("Front-End");
+}
+let accounting = new Department("Accounting");
+let programming = new Department("Front-End");
 console.log("accounting.name -- ", accounting._name);
 console.log("programming.name -- ", programming._name);
 /*/
     new - Açar sözi Class dan bir Object yaradir yeni bir misalin yaradir
     class yaranarken ilk öncə onun constructor metodu call olur ve classa
-    gelen valueleri this Objectinin açarlarinin dəyərləri olaraq verilir
+    gelen parametirleri this Objectinin açarlarinin dəyərləri olaraq verilir
     yeni property: value
     this ={_name: name}
     bu this de classdan yaranan objecti evez edir
@@ -55,4 +54,3 @@ console.log("programming.name -- ", programming._name);
         class da this new ile yaranan Objectir
         functionda ise this return  Department-i evez eden bir Objecti
 /*/ 
-//# sourceMappingURL=Class1.js.map

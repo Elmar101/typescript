@@ -1,18 +1,16 @@
 "use strict";
-var User = /** @class */ (function () {
-    function User(name, sname) {
-        var _this = this;
-        this.fullName = function () { return console.log('istifadecinin tam adi ', _this._name + ' ' + _this._sname); };
-        this.tamAd = function () { return _this._name + ' ' + _this._sname; };
+class User {
+    constructor(name, sname) {
+        this.fullName = () => console.log('istifadecinin tam adi ', this._name + ' ' + this._sname);
+        this.tamAd = () => { return this._name + ' ' + this._sname; };
         this._name = name;
         this._sname = sname;
     }
-    return User;
-}());
-var userA = new User("Elmar", "Amanov");
+}
+let userA = new User("Elmar", "Amanov");
 userA.fullName();
 console.log("userA consolda fullName metodunu call etmek - ", userA.fullName()); //undefined
-console.log("userA consolda tamAd metodunu call etmek - ", userA.tamAd()); //undefined
+console.log("userA consolda tamAd metodunu call etmek - ", userA.tamAd()); //Elmar Amanov
 console.log("userA", userA);
 /*/
     userA User { fullName: [Function (anonymous)],tamAd: [Function (anonymous)], _name: 'Elmar',_sname: 'Amanov'}
@@ -20,19 +18,19 @@ console.log("userA", userA);
     ama console.log( userA.tamAd()) => bu ise "Elmar Amanov" stringini return edir
 
     fullName metodu void metoddu buda yalniz Classin daxilinde Nese property qiymeti deyismeye yarayir
+    this anahtar kelmesi globalda window da name ve sname deyisenlerini axtarir ele deyisen olmaddiqi ichin undefined
     tamAd metodu ise geriye deyer qaytarir yeni nese deyer qiymet saxlayir
 /*/
-var Program = /** @class */ (function () {
-    function Program(n) {
+class Program {
+    constructor(n) {
         this.name = n;
     }
-    Program.prototype.progName = function () { console.log('Programin adi - ', this.name); };
-    return Program;
-}());
-var program = new Program("typescript");
+    progName() { console.log('Programin adi - ', this.name); }
+}
+let program = new Program("typescript");
 program.progName();
 //console.log("prog Adi -- ", program.progName({name:"js",progName: program.progName} ) )
-var programCopy = { name: "javascript", progName: program.progName };
+let programCopy = { name: "javascript", progName: program.progName };
 programCopy.progName();
 /*/
     programCopy = {programName: program.progName} bele yazdiqda errorla qarşılaşırıq
@@ -40,7 +38,7 @@ programCopy.progName();
             - çünki program Objesinin progName bir argument alir "this" argumentini hansiki Program tipindedi
               bizde programCopy nin progName-ni program objesinin progName ni deyer olaraq veririk
               bu zaman programCopy Objesininde name properitisi olmasi mecburiyetindedi chunki
-              program.progName(this:Program) bu tipde metoddu
+              program.progName(this:Program) bu tipde metoddu  this de burda programCopy ni evez edir
+              this = programCopy = {name: "nese...", progName(this: Program){console.log("......"),this.name}}
 
 /*/
-//# sourceMappingURL=ThisKey.js.map
