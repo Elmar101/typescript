@@ -11,7 +11,7 @@
         } 
     }
 /*/
-//proyektin her yerinde Classin Öz adi ilə Çaqira bilərsən !!!
+//static şeylər proyektin her yerinde Classin Öz adi ilə Çaqira bilərsən !!!
 class STCProperty {
     static readonly staticYear: number = 2021;
     static id: number;

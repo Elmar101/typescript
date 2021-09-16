@@ -12,7 +12,7 @@
         }
     }
 /*/
-//proyektin her yerinde Classin Öz adi ilə Çaqira bilərsən !!!
+//static şeylər proyektin her yerinde Classin Öz adi ilə Çaqira bilərsən !!!
 class STCProperty {
     constructor(id, name, value) {
         this.name = name;
