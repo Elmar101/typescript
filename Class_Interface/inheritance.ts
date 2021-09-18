@@ -4,7 +4,7 @@ class Departments {
 
     protected employeers: string[] = [];
 
-    constructor(private id: number, public name: string, private readonly salary: number){};
+    constructor(private id: number, public name: string, private readonly salary: number,public info?: string[]){};
     
     description():void{
         console.log(`${this.id} - ${this.name} - ${this.salary}azn`);
@@ -47,7 +47,7 @@ console.log("-------------------------Accounting Department information Start---
 class AccountingDepartment extends Departments{
     admin: string[];
     constructor(id: number,name: string,admin: string[]){
-        super(id,name,2000);//Valideyin classin (extends olan class) conustructoru bizden hemde salarini isdeyir 
+        super(id,name,2000);//Valideyin classin (extends olan class) conustructoru bizden hemde salarini isdeyir=> info? olada biler olmuyada biler
         this.admin = admin
     }
 }
@@ -63,7 +63,7 @@ console.log(accountsDepartments.name, " ve admin : ", accountsDepartments.admin)
 
 /*/ 
     constructor(id: number,name: string,admin: string[]){
-        super(id,name,2000);
+        super(id,name,2000);// super(id,name,2000,["info olada biler olmuyada biler qaqa"]);
         this.admin = admin
     }
     1 - ci super() mirass(extends) alinan classin constructor-unu evez edir
@@ -72,7 +72,7 @@ console.log(accountsDepartments.name, " ve admin : ", accountsDepartments.admin)
             => constructor(id: number,name: string){
                     super(id,name,2000);
                     //constructor(id: number,name: string) salary qeyd edilmediyi ichin default oturulmelidi
-                    // constructor(id: number){super(id,"Default Ad",3000)} id new ile yarananda oturulecek
+                    //constructor(id: number){super(id,"Default Ad",3000)} id new ile yarananda oturulecek
                }
     3 - ci  
 /*/
@@ -80,7 +80,7 @@ console.log("-------------------------AccountingDepartment information End------
 console.log("-------------------------Finance Department information Start----------------------------------");
 class FinanceDepartment extends Departments{
     constructor(id: number,private report: string[]){
-        super(id,"Finance",2000);
+        super(id,"Finance",2000,["info mecburi deyil"]);
     }
 
     addReport(text: string): void {

@@ -12,6 +12,7 @@ abstract class Bloc{
     private datas: string[] = [];
 
     protected readonly _id: number;
+    
     protected constructor(private id: number, public name: string, protected data: string){
         this._id = id;
         this.datas.push(data)

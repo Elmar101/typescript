@@ -21,7 +21,6 @@ console.log( "userA", userA)
     ama console.log( userA.tamAd()) => bu ise "Elmar Amanov" stringini return edir
 
     fullName metodu void metoddu buda yalniz Classin daxilinde Nese property qiymeti deyismeye yarayir
-    this anahtar kelmesi globalda window da name ve sname deyisenlerini axtarir ele deyisen olmaddiqi ichin undefined 
     tamAd metodu ise geriye deyer qaytarir yeni nese deyer qiymet saxlayir 
 /*/
 class Program {
