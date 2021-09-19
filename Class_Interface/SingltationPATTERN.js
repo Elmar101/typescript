@@ -22,25 +22,31 @@
     let obj = new ItDepartmentAdmin(1,"Elmar","elmar12345") =>ERROR !!!! constructor privatedi
 /*/
 var ItDepartmentAdmin = /** @class */ (function () {
-    function ItDepartmentAdmin(id, name, password) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
+    function ItDepartmentAdmin(admin) {
+        this.admin = admin;
+        ItDepartmentAdmin.Admins = admin;
     }
+    Object.defineProperty(ItDepartmentAdmin.prototype, "getITAdmins", {
+        get: function () { return ItDepartmentAdmin.Admins; },
+        enumerable: false,
+        configurable: true
+    });
     ItDepartmentAdmin.getAdminsInstance = function () {
         if (ItDepartmentAdmin.itsAdminInstance) {
             return this.itsAdminInstance;
         }
-        this.itsAdminInstance = new ItDepartmentAdmin(1, "Elmar", "elmar12345");
+        this.itsAdminInstance = new ItDepartmentAdmin({ id: 1, name: "Elmar", password: "elmar12345" });
         return this.itsAdminInstance;
     };
+    ItDepartmentAdmin.prototype.addAdmin = function (admin) { ItDepartmentAdmin.Admins.push(admin); };
+    ItDepartmentAdmin.Admins = [];
     return ItDepartmentAdmin;
 }());
 var itDepartmentAdmin = ItDepartmentAdmin.getAdminsInstance();
-console.log("itDepartmentAdmin: " + itDepartmentAdmin); //[object object]
-console.log("itDepartmentAdmin id : " + itDepartmentAdmin.id +
-    " | itDepartmentAdmin name : " + itDepartmentAdmin.name +
-    " | itDepartmentAdmin password : " + itDepartmentAdmin.password);
+console.log("itDepartmentAdmin: " + itDepartmentAdmin.getITAdmins); //[object object]
+console.log("itDepartmentAdmin id : " + itDepartmentAdmin.getITAdmins.id +
+    " | itDepartmentAdmin name : " + itDepartmentAdmin.getITAdmins.name +
+    " | itDepartmentAdmin password : " + itDepartmentAdmin.getITAdmins.password);
 //Angular => Singltation Pattern mentiqi ile Chalisir 
 //let itDepartmentAdmin: ItDepartmentAdmin = new ItDepartmentAdmin(1,"Elmar","elmar12345");
 //Constructor of class 'ItDepartmentAdmin' is private and only accessible within the class declaration.

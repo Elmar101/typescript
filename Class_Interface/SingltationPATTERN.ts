@@ -27,24 +27,31 @@ class ItDepartmentAdmin {
 
     private static itsAdminInstance: ItDepartmentAdmin;
 
-    private constructor(public id: number,public name: string,public password: string){
+    private static Admins:any = [];
 
+    get getITAdmins(){ return ItDepartmentAdmin.Admins }
+
+    private constructor( public admin: {id: number, name: string,password: string} ){
+        ItDepartmentAdmin.Admins = admin
     }
 
     static getAdminsInstance(): ItDepartmentAdmin {
         if(ItDepartmentAdmin.itsAdminInstance){  return this.itsAdminInstance; }
-        this.itsAdminInstance = new ItDepartmentAdmin(1,"Elmar","elmar12345");
+        this.itsAdminInstance = new ItDepartmentAdmin({ id:1,name:"Elmar", password: "elmar12345" });
         return this.itsAdminInstance;
     }
+
+    addAdmin(admin:{id: number, name: string, password: string}){ ItDepartmentAdmin.Admins.push(admin) }
       
 }  
 
 let itDepartmentAdmin: ItDepartmentAdmin = ItDepartmentAdmin.getAdminsInstance();
 
-console.log("itDepartmentAdmin: " + itDepartmentAdmin);//[object object]
-console.log("itDepartmentAdmin id : " + itDepartmentAdmin.id + 
-            " | itDepartmentAdmin name : " + itDepartmentAdmin.name + 
-            " | itDepartmentAdmin password : " + itDepartmentAdmin.password);
+console.log("itDepartmentAdmin: " + itDepartmentAdmin.getITAdmins);//[object object]
+console.log("itDepartmentAdmin id : " + itDepartmentAdmin.getITAdmins.id + 
+            " | itDepartmentAdmin name : " + itDepartmentAdmin.getITAdmins.name + 
+            " | itDepartmentAdmin password : " + itDepartmentAdmin.getITAdmins.password);
+
 //Angular => Singltation Pattern mentiqi ile Chalisir 
 //let itDepartmentAdmin: ItDepartmentAdmin = new ItDepartmentAdmin(1,"Elmar","elmar12345");
 //Constructor of class 'ItDepartmentAdmin' is private and only accessible within the class declaration.
