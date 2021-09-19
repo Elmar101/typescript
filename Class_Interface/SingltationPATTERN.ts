@@ -27,12 +27,12 @@ class ItDepartmentAdmin {
 
     private static itsAdminInstance: ItDepartmentAdmin;
 
-    private static Admins:any = [];
+    private static Admins: Array<{id: number, name: string,password: string}> = [];
 
     get getITAdmins(){ return ItDepartmentAdmin.Admins }
 
     private constructor( public admin: {id: number, name: string,password: string} ){
-        ItDepartmentAdmin.Admins = admin
+        ItDepartmentAdmin.Admins.push(admin);
     }
 
     static getAdminsInstance(): ItDepartmentAdmin {
@@ -47,10 +47,10 @@ class ItDepartmentAdmin {
 
 let itDepartmentAdmin: ItDepartmentAdmin = ItDepartmentAdmin.getAdminsInstance();
 
-console.log("itDepartmentAdmin: " + itDepartmentAdmin.getITAdmins);//[object object]
-console.log("itDepartmentAdmin id : " + itDepartmentAdmin.getITAdmins.id + 
-            " | itDepartmentAdmin name : " + itDepartmentAdmin.getITAdmins.name + 
-            " | itDepartmentAdmin password : " + itDepartmentAdmin.getITAdmins.password);
+console.log("itDepartmentAdmin: " + itDepartmentAdmin.getITAdmins);
+console.log("itDepartmentAdmin id : " + itDepartmentAdmin.getITAdmins[0].id + 
+            " | itDepartmentAdmin name : " + itDepartmentAdmin.getITAdmins[0].name + 
+            " | itDepartmentAdmin password : " + itDepartmentAdmin.getITAdmins[0].password);
 
 //Angular => Singltation Pattern mentiqi ile Chalisir 
 //let itDepartmentAdmin: ItDepartmentAdmin = new ItDepartmentAdmin(1,"Elmar","elmar12345");
