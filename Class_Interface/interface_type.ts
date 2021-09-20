@@ -121,7 +121,6 @@ class ClassTtype implements T2 {
 }
 let TObj = new ClassTtype("interface extends dersi");
 TObj.printPhrease("interface extends dersi");
-
 /*/
     class ClassType implements T2 {
 
@@ -136,3 +135,71 @@ TObj.printPhrease("interface extends dersi");
     constructor(public name: string) {} => class className { name: string; constructor(name:string){this.name = name} }
     //Angular da dependensi injection ishlemleri nu qayda iledi 
 /*/
+
+/*/
+    interface T1 { readonly name: string }
+    interface T2 { printPhrease(ph: string): void }
+
+    class ClassTtype implements T2,T1 {
+
+        constructor(public name: string) {}
+
+        printPhrease(ph: string): void {
+            console.log( ph );
+            if (!ph) { throw new Error("Method not implemented"); }
+        }
+
+    }
+    let TObj = new ClassTtype("interface extends dersi");
+    TObj.printPhrease("interface extends dersi");
+/*/
+
+//------------------------ Function interface Anonimis ------------------------
+
+console.log("----------------------- function interface or function Custom type ---------------------------");
+
+type CustomFnType = (n1: number, n2: number) => number;
+                                                        //=> inteface ve type ile custom anonimis function type yaratmaq
+                                                        //hansiki blokdan çöldə bize custom function type lazim olsa
+interface CustomFnInterface { (n1: number, n2: number): number; }
+
+let addFn: CustomFnType = (n1: number, n2: number) =>{ return n1 + n2; };
+
+let sumFn: CustomFnInterface = (n1: number, n2: number) =>{ return n1 + n2; };
+
+console.log("addFn : ", addFn(5,6));
+
+console.log("sumFn: ", sumFn(5,7));
+
+//----------------- Optional parameters --------------------------------------------------
+
+console.log("----------------------- Optional parameters --------------------------------");
+
+interface Tpm1 { 
+    readonly name?: string;
+    input?: string;
+    output: string | undefined;
+}
+
+//readonly name?: string != readonly name:  string | undefined; 
+//-? olada biler bele parametr olmayada biler implements olduqu Classda
+
+interface Tpm2 extends Tpm1 { printPhrease(ph: string): void }
+
+class OptionalPm implements Tpm2 {
+    name?: string;
+    output: string | undefined;
+    constructor(name?: string, output?: string) {
+        if(name){ this.name = name; }
+        if(output){this.output = output }
+    }
+    
+    printPhrease(ph: string): void {
+        console.log( ph );
+        if (!ph) { throw new Error("Method not implemented"); }
+    }
+
+}
+let ObjPm = new OptionalPm();
+ObjPm.printPhrease("optional parametr dersi");
+console.log("optional parametr name ",ObjPm.name)

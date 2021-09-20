@@ -47,8 +47,8 @@ console.log("-------------------------Accounting Department information Start---
 class AccountingDepartment extends Departments{
     admin: string[];
     constructor(id: number,name: string,admin: string[]){
-        super(id,name,2000);//Valideyin classin (extends olan class) conustructoru bizden hemde salarini isdeyir=> info? olada biler olmuyada biler
-        this.admin = admin
+        super(id,name,2000); //Valideyin classin (extends olan class) conustructoru bizden 
+        this.admin = admin; //hemde salarini isdeyir=> info? olada biler olmuyada biler optionaldi
     }
 }
 
@@ -76,6 +76,9 @@ console.log(accountsDepartments.name, " ve admin : ", accountsDepartments.admin)
                }
     3 - ci  
 /*/
+// this classdan yaranan objecti evez edir superdeki ve ya 
+//constructordaki parametirleri icindeki propertilere value olaraq alir
+
 console.log("-------------------------AccountingDepartment information End----------------------------------");
 console.log("-------------------------Finance Department information Start----------------------------------");
 class FinanceDepartment extends Departments{
@@ -116,7 +119,7 @@ console.log("-------------------------Finance Department information End--------
 
 
 /*/ 
-    eger constructor da deyisen -public private protected anahtar kelmeleri ile yazilibsa bu zaman
+    eger constructor da parametrler -public private protected anahtar kelmeleri ile yazilibsa bu zaman
     CLASS -in daxilinde global deyisen kimi yaranir 
 
     ex => 
