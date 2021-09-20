@@ -24,7 +24,7 @@
 var ItDepartmentAdmin = /** @class */ (function () {
     function ItDepartmentAdmin(admin) {
         this.admin = admin;
-        ItDepartmentAdmin.Admins = admin;
+        ItDepartmentAdmin.Admins.push(admin);
     }
     Object.defineProperty(ItDepartmentAdmin.prototype, "getITAdmins", {
         get: function () { return ItDepartmentAdmin.Admins; },
@@ -43,10 +43,10 @@ var ItDepartmentAdmin = /** @class */ (function () {
     return ItDepartmentAdmin;
 }());
 var itDepartmentAdmin = ItDepartmentAdmin.getAdminsInstance();
-console.log("itDepartmentAdmin: " + itDepartmentAdmin.getITAdmins); //[object object]
-console.log("itDepartmentAdmin id : " + itDepartmentAdmin.getITAdmins.id +
-    " | itDepartmentAdmin name : " + itDepartmentAdmin.getITAdmins.name +
-    " | itDepartmentAdmin password : " + itDepartmentAdmin.getITAdmins.password);
+console.log("itDepartmentAdmin: " + itDepartmentAdmin.getITAdmins);
+console.log("itDepartmentAdmin id : " + itDepartmentAdmin.getITAdmins[0].id +
+    " | itDepartmentAdmin name : " + itDepartmentAdmin.getITAdmins[0].name +
+    " | itDepartmentAdmin password : " + itDepartmentAdmin.getITAdmins[0].password);
 //Angular => Singltation Pattern mentiqi ile Chalisir 
 //let itDepartmentAdmin: ItDepartmentAdmin = new ItDepartmentAdmin(1,"Elmar","elmar12345");
 //Constructor of class 'ItDepartmentAdmin' is private and only accessible within the class declaration.
