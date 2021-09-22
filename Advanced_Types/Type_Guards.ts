@@ -270,30 +270,10 @@ let ReducerFn = (state: IinitialState, action: Iaction) =>{
     }
 }
 
-let Cem: IinitialState = {
-    type: 'TOPLAMA',
-    n1: 2,
-    n2: 4
-}
-
-
-let Çıxma: IinitialState = {
-    type: 'ÇIXMA',
-    n1: 6,
-    n2: 9
-}
-
-let Vurma: IinitialState = {
-    type: 'VURMA',
-    n1: 6,
-    n2: 9
-}
-
-let Bölmə: IinitialState = {
-    type: 'BöLMƏ',
-    n1: 6,
-    n2: 9
-}
+let Cem: IinitialState = {   type: 'TOPLAMA', n1: 2,  n2: 4 }
+let Çıxma: IinitialState = { type: 'ÇIXMA',   n1: 6,  n2: 9 }
+let Vurma: IinitialState = { type: 'VURMA',   n1: 6,  n2: 9 }
+let Bölmə: IinitialState = { type: 'BöLMƏ',   n1: 6,  n2: 9 }
 
 let SUM:Iaction = (a:number, b:number) => a+b;
 let DIFFIRENT: Iaction = (a:number, b:number) => a - b;
