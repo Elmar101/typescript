@@ -92,7 +92,7 @@ let em2: EM_OR = {
 
 
 
-//********************************/ FUNUKSIALARDA | ve & typlar hakda  ***************************************
+//********************************/ FUNUKSIALARDA | ve & typlar hakda  /***************************************
 
 console.log("--------------------FUNUKSIALARDA | ve & typlar hakda  ------------------------------");
 type TA = { 
@@ -124,7 +124,7 @@ printEmployeeInfo(em1);
 
     type unionEmploye_OR_Type = TA | TB ; bunda if ile yoxlanmalidir  => Bəs niyə?
 
-    NiyəSi ise => if ilə yoxlanmalidir çünki - em OBJECTİ ya TA di yada TB dir
+    NiyəSi ise => if ilə yoxlanmalidir çünki - em OBJECTİ ya type TA di yada type TB dir
     gələn properitilər yoxlanmalidirki TA nin bütün properitileri en azindan varmi TB kilər olada bilər olmayada 
     AMA ƏN AZINDAN TA NIN HAMISI OLMALIDI BUNUN ƏKSİDƏ KEÇƏRLİDİ AÇAQİDAKİ QAYDANİDA OXU  
     yaxud TB nin properitilərinin hamisi varmi TA dakilar olada bilər olmayada ama TB dəkilərin hamisi olmalidi
@@ -145,7 +145,7 @@ printEmployeeInformation({name: "Eldar", employees:["Sinan","Akif"], startDate: 
 
 /**************************************** Class union types and intersection types *****************************************/
 console.log("****************************** Class union types and intersection types ***********************************");
-
+// instanceof classlara mexsusdu !!!!
 class Car {  
     drive(){ console.log("DRIVING .....") }
     marka(m: string){ console.log("CARS MARKA : ", m); }
@@ -178,10 +178,11 @@ function vehicle_Fn_AND_TYPE(v: Vehicle_AND_Type){
     if(v instanceof Car) { v.marka("BMW") }  
 }
 
-vehicle_Fn_AND_TYPE(c as Vehicle_AND_Type);
+vehicle_Fn_AND_TYPE(<Vehicle_AND_Type>c);
 vehicle_Fn_AND_TYPE(t as Vehicle_AND_Type);
 
 /*/
+&=> saxladiqi data ikisinin birlesmesidi Car ve Truckin Ona gore type casting edirik functiona parametir olaraq oturende
 vehicle_Fn_AND_TYPE(c) asahaqidaki errorla qarsilasiriq ve hemen type cast edirik !!!!
 -'Car' tipi argüman, 'Vehicle_AND_Type' tipindeki parametreye atanamaz.'LoadCargo' özelliği 'Car' türünde eksik, 
   amma 'Truck' tipinde gerekli 
@@ -243,6 +244,45 @@ animalsFn_OR_union_type( a );
     }
 /*/
 
+//********************************| example discIriminated Type Reactin useReduceri|******************************** *//
+console.log("**************** EXAMPLE DISCIRIMINATED TYPE *******************************************")
 
+interface IinitialState { type: string ; n1: number ; n2: number ; }
 
+interface Iaction{ (a: number, b: number): number; }
+
+let ReducerFn = (state: IinitialState, action: Iaction) =>{
+    switch (state.type){
+        case 'TOPLAMA':
+            console.log( "sum is  " , action(state.n1, state.n2) );
+            break;
+
+        case 'ÇIXMA':
+            console.log( "diffirent is " ,action(state.n1, state.n2) );
+            break;
+
+        case 'VURMA':
+            console.log( "multiple is " , action(state.n1, state.n2) );
+            break;
+
+        case 'BöLMƏ':
+            console.log( "divide is " ,action(state.n1, state.n2) );
+            break;
+    }
+}
+
+let Cem: IinitialState = {   type: 'TOPLAMA', n1: 2,  n2: 4 }
+let Çıxma: IinitialState = { type: 'ÇIXMA',   n1: 6,  n2: 9 }
+let Vurma: IinitialState = { type: 'VURMA',   n1: 6,  n2: 9 }
+let Bölmə: IinitialState = { type: 'BöLMƏ',   n1: 6,  n2: 9 }
+
+let SUM:Iaction = (a:number, b:number) => a+b;
+let DIFFIRENT: Iaction = (a:number, b:number) => a - b;
+let MULTIPLE: Iaction = (a:number, b:number) => a * b;
+let Divide: Iaction = (a:number, b:number) => a / b;
+
+ReducerFn(Cem, SUM );
+ReducerFn(Çıxma, DIFFIRENT );
+ReducerFn(Vurma, MULTIPLE );
+ReducerFn(Bölmə, Divide );
 
