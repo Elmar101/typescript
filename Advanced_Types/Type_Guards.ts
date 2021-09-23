@@ -145,7 +145,7 @@ printEmployeeInformation({name: "Eldar", employees:["Sinan","Akif"], startDate: 
 
 /**************************************** Class union types and intersection types *****************************************/
 console.log("****************************** Class union types and intersection types ***********************************");
-
+// instanceof classlara mexsusdu !!!!
 class Car {  
     drive(){ console.log("DRIVING .....") }
     marka(m: string){ console.log("CARS MARKA : ", m); }
@@ -248,6 +248,7 @@ animalsFn_OR_union_type( a );
 console.log("**************** EXAMPLE DISCIRIMINATED TYPE *******************************************")
 
 interface IinitialState { type: string ; n1: number ; n2: number ; }
+
 interface Iaction{ (a: number, b: number): number; }
 
 let ReducerFn = (state: IinitialState, action: Iaction) =>{
