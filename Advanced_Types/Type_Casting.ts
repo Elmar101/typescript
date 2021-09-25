@@ -144,4 +144,67 @@ let user_AND_Job = {
 }
 
 let stor_AND_TITLE_NAME= user_AND_Job?.job?.title && user_AND_Job?.job?.title ;
-console.log("stor_AND_TITLE_NAME: ", stor_AND_TITLE_NAME);//
+console.log("stor_AND_TITLE_NAME: ", stor_AND_TITLE_NAME);//\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/
+Geçtiğimiz günlerde JavaScript’in yeni operatörlerinden “Nullish coalescing operator” ile ilgili bir 
+blog yazısı yazmıştım. Bu defa da kullanım alanı açısından “Nullish coalescing” ile ilintili bir başka 
+operatör olan “Optional chaining” operatöründen bahsedeceğim.
+Nasıl kullanıldığına bakmadan evvel yine ilk olarak ihtiyacı tanımlayalım. Diyelim ki bir servise 
+yaptığımız istek sonrasında aşağıdaki gibi, programlama dilleri hakkında bilgiler veren bir JSON elde ediyoruz.
+let languages = {
+    "javaScript": {
+      "designedBy": "Brendan Eich",
+      "firstRelease": "May 1995",
+      "stableRelease": "June 2019"
+    },
+    "python": {
+      "designedBy": "Guido van Rossum",
+      "firstRelease": "January 1990",
+      "stableRelease": "May 2020"
+    }
+}
+Uygulama içerisindeki kullanım senaryosuna göre de JavaScript dilinin tasarımcı bilgisine erişmek istiyoruz diyelim.
+languages.javaScript.designedBy; // Brendan Eich
+Normal şartlar altında, yani sonuç içerisinde bir “javaScript” objesi olduğundan ve bu objenin de “designedBy” 
+isminde bir özelliğe sahip olduğundan emin olduğumuz durumlarda üstteki gibi bir kullanımla erişim sağlayabiliyoruz.
+Diyelim ki sonuç içerisinde JavaScript diline dair bir kayıt olup olmayacağını hatta bir kayıt olsa dahi içerisinde
+ tasarımcı bilgisinin olup olmayacağını bilmiyoruz. Bu defa da aşağıdaki gibi bir kondisyonla bu alanların varlığını
+  kontrol edip hata (TypeError) almayacağımızdan emin olduktan sonra ilgili veriye erişiyoruz.
+if(languages.javaScript && languages.javaScript.designedBy)
+  languages.javaScript.designedBy; // Brendan Eich
+Örnekte iç içe yalnızca bir obje olmasına rağmen tek bir özelliğin varlığından emin olmak için epey uzun bir
+
+kondisyon yazdık. Çalıştığımız projeler içerisinde yönetmek zorunda kaldığımız veri yapıları bu kadar basit
+olmuyor maalesef. Karmaşık özellik isimlerinin ve iç içe daha fazla katmanlı verilerin yer aldığı bir gerçek
+ hayat senaryosuna üstteki gibi bir kondisyon uygulanmaya çalışıldığında kodun okunamaz ve kolayca hataya teşne
+  hâle gelmesi an meselesi oluyor.
+“Optional chaining” (opsiyonel, isteğe bağlı zincirleme) operatörü burada imdadımıza yetişiyor. Varlığından 
+emin olmak istediğimiz objenin sonuna ekleyeceğimiz “?.” operatörüyle üstteki kondisyonu sağlamış oluyoruz.
+ Bu kullanım sonucunda istediğimiz özelliğe erişebiliyorsak ilgili değeri, erişemiyorsak undefined değerini 
+ elde etmiş oluyoruz.
+languages.javaScript?.designedBy; // Brendan Eich
+languages.php?.designedBy; // undefined
+languages.ruby.designedBy; // TypeError
+languages.ruby?.designedBy; // undefined
+Bu sayede elimizdeki veri ne kadar karmaşık olursa olsun languages.javaScript?.designedBy?.infos?.name gibi 
+bir kullanım ile temiz ve okunaklı bir kod yazmış oluyoruz.
+Unutmadan, “Optional chaining” de “Nullish coalescing” gibi oldukça yeni bir operatör olduğundan güncel
+olmayan tarayıcılarda çalışmayabilir. O yüzden bu operatörleri kullandığımız durumlarda yine kendimizi  
+Babel’ın güvenli kollarına atmak en doğrusu.
+
+/*/
