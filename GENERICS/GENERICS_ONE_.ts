@@ -51,7 +51,7 @@ let promise: Promise<string> = new Promise((resolve, reject)=>{
 
  promise.then( data => console.log( data.split('') ) );//['T', 'y', 'p', 'e', 'S', 'c', 'r', 'i', 'p', 't', 'i']
 
-
+ 
  // Ex Promise<number> resolve("number tipde datalar ötirəcək thene") then(num:number => execute code );
 
  let promiseNumber: Promise<number> = new Promise((resolve, reject)=>{
