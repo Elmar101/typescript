@@ -73,4 +73,32 @@ function strNumGeneric(id, name) {
 }
 let X = strNumGeneric(6, "MAX");
 console.log("X is ", X);
+//WORKING WITH CONSTRAINT- məhdudlaşdırmaq < T extends Object, U extends Object > Textends number ve sair
+function mergeProble(objA, objB) {
+    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+}
+let problem = mergeProble({ name: "Elmar" }, 30);
+console.log("problem_One is ", problem); // { name: "Elmar" }
+// Elbetde cavab yanlisdi {name: "Elmar"} 30 bes hara getdi eger yazlisda sehf varsa code terefde consolda problem
+// niede yoxdur Bu problemleri aradan qaldirmaq ichin extends anahtar kelmesini kulanacayiq
+function mergeProbleConstraintSolution(objA, objB) {
+    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+}
+/*/
+    let problem_Solution = mergeProbleConstraintSolution( { name: "Elmar" }, 30 )
+    Argument of type 'number' is not assignable to parameter of type 'object'.
+/*/
+// (T & U ) | ( T | U) => Tipletde iki cür mentiqi ifadə var and - & ve , or - | yaxud
+let problem_Solution = mergeProbleConstraintSolution({ name: "Elmar" }, { age: 26 });
+console.log("problem_One is ", problem_Solution);
+function count_And_Describe(element) {
+    /*/ Array<string | T>  eyni yazilisdi (string | T)[] ve ya [T , string] /*/
+    let text = " Text yoxdur!!!";
+    if (element.length > 1) {
+        text = "textin lengthsi is " + element.length;
+    }
+    return [element, text];
+}
+console.log("count_And_Describe atring data ile ", count_And_Describe("Bes Demisdin Vermiyeciyem ne oldu ???"));
+console.log("count_And_Describe Arrey data ile ", count_And_Describe(["Bes Demisdin Vermiyeciyem", "ne oldu ???"]));
 console.log("******************************* Promislerde 2 sanie gozleme var ***************************************");
