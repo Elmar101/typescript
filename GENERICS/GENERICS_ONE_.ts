@@ -125,14 +125,31 @@ interface Lengths{
 function count_And_Describe<T extends Lengths>(element: T):Array<string | T>{
     /*/ Array<string | T>  eyni yazilisdi (string | T)[] ve ya [T , string] /*/
 
-    let text = " Text yoxdur!!!"
-    if(element.length > 1){
-        text = "textin lengthsi is " + element.length ;
-    }
-    return [element , text]
+    let text = " Text yoxdur !!! " ;
+    if(element.length > 1){ text = "textin lengthsi is " + element.length ; }
+    return [element , text];
 }
 console.log("count_And_Describe atring data ile ", count_And_Describe("Bes Demisdin Vermiyeciyem ne oldu ???"));
 console.log("count_And_Describe Arrey data ile ", count_And_Describe( ["Bes Demisdin Vermiyeciyem", "ne oldu ???"] ));
+
+
+
+/*************************************| T extends object, U extends keyof T    |***************************************/
+function extract_AND_Convert<T extends object, U extends keyof T>(obj: T,key: U){
+    return obj[key]
+}
+console.log( extract_AND_Convert( {name: "Elmar"},"name" ) );
+
+
+//<T extends object, U extends keyof T>(obj: T,key: U) => U, T nin keyidi T ye tip olaraq uyqun gelen objectin keyidi
+// T extends {name: string} yeni T genislenib ve onun name adli keyi var ve bu key name di name de string tipdi
+//U da T nin keyinin Tipidi yeni stringdi
+
+
+function extract_AND_Convert1<T extends {name: string}, U extends keyof T>(obj: T,key: U){
+    return obj[key]
+}
+console.log( extract_AND_Convert1( {name: "Elmar"},"name" ) );
 
 console.log("******************************* Promislerde 2 sanie gozleme var ***************************************");
 
