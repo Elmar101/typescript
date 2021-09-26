@@ -61,3 +61,39 @@ let promise: Promise<string> = new Promise((resolve, reject)=>{
 });
 
  promiseNumber.then( data => console.log( data.toFixed() ) );//11
+
+
+
+ /*****************************| CREAT GENERICS FUNCTION |***************************************/
+ console.log("*****************************| CREAT GENERICS FUNCTION  |**********************************");
+
+ function  merge<T , U>(objA: T, objB: U): T & U {
+     return {...objA, ...objB} // Object.assign(objA, objB);
+ }
+//user_One
+ let user_One = merge({name: "Elmar",age: 26}, {hoppies:["sport"]});
+ console.log(`user_One Name is : ${user_One.name} , age is : ${user_One.age}, hoppies is : ${user_One.hoppies} `);
+
+ // user_Two 
+ let user_Two = merge<{name: string, age: number},{hoppies: Array<string | number>}>(
+        {name: "Eldar",age: 25}, {hoppies:["sport"]}
+    );
+console.log(`user_Two Name is : ${user_Two.name} , age is : ${user_Two.age}, hoppies is : ${user_Two.hoppies} `);
+
+//user_Tree
+let user_Tree = merge<{name: string, age: number},{info: string}>(
+    {name: "Rafik",age: 25}, { info: 'I am a Enjineer'}
+);
+console.log(`user_Tree Name is : ${user_Tree.name} , age is : ${user_Tree.age}, information is : ${user_Tree.info} `);
+
+//EXAMPLE TWO 
+function strNumGeneric<T,U>(id: T, name: U): {id: T, name: U} {
+    return {id: id, name: name} 
+}
+let X = strNumGeneric<number, string>(6,"MAX");
+console.log("X is ", X);
+
+console.log("******************************* Promislerde 2 sanie gozleme var ***************************************");
+
+
+
