@@ -53,3 +53,64 @@ let promiseNumber = new Promise((resolve, reject) => {
     }, 3000);
 });
 promiseNumber.then(data => console.log(data.toFixed())); //11
+/*****************************| CREAT GENERICS FUNCTION |***************************************/
+console.log("*****************************| CREAT GENERICS FUNCTION  |**********************************");
+function merge(objA, objB) {
+    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+}
+//user_One
+let user_One = merge({ name: "Elmar", age: 26 }, { hoppies: ["sport"] });
+console.log(`user_One Name is : ${user_One.name} , age is : ${user_One.age}, hoppies is : ${user_One.hoppies} `);
+// user_Two 
+let user_Two = merge({ name: "Eldar", age: 25 }, { hoppies: ["sport"] });
+console.log(`user_Two Name is : ${user_Two.name} , age is : ${user_Two.age}, hoppies is : ${user_Two.hoppies} `);
+//user_Tree
+let user_Tree = merge({ name: "Rafik", age: 25 }, { info: 'I am a Enjineer' });
+console.log(`user_Tree Name is : ${user_Tree.name} , age is : ${user_Tree.age}, information is : ${user_Tree.info} `);
+//EXAMPLE TWO 
+function strNumGeneric(id, name) {
+    return { id: id, name: name };
+}
+let X = strNumGeneric(6, "MAX");
+console.log("X is ", X);
+//WORKING WITH CONSTRAINT- məhdudlaşdırmaq < T extends Object, U extends Object > Textends number ve sair
+function mergeProble(objA, objB) {
+    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+}
+let problem = mergeProble({ name: "Elmar" }, 30);
+console.log("problem_One is ", problem); // { name: "Elmar" }
+// Elbetde cavab yanlisdi {name: "Elmar"} 30 bes hara getdi eger yazlisda sehf varsa code terefde consolda problem
+// niede yoxdur Bu problemleri aradan qaldirmaq ichin extends anahtar kelmesini kulanacayiq
+function mergeProbleConstraintSolution(objA, objB) {
+    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+}
+/*/
+    let problem_Solution = mergeProbleConstraintSolution( { name: "Elmar" }, 30 )
+    Argument of type 'number' is not assignable to parameter of type 'object'.
+/*/
+// (T & U ) | ( T | U) => Tipletde iki cür mentiqi ifadə var and - & ve , or - | yaxud
+let problem_Solution = mergeProbleConstraintSolution({ name: "Elmar" }, { age: 26 });
+console.log("problem_One is ", problem_Solution);
+function count_And_Describe(element) {
+    /*/ Array<string | T>  eyni yazilisdi (string | T)[] ve ya [T , string] /*/
+    let text = " Text yoxdur !!! ";
+    if (element.length > 1) {
+        text = "textin lengthsi is " + element.length;
+    }
+    return [element, text];
+}
+console.log("count_And_Describe atring data ile ", count_And_Describe("Bes Demisdin Vermiyeciyem ne oldu ???"));
+console.log("count_And_Describe Arrey data ile ", count_And_Describe(["Bes Demisdin Vermiyeciyem", "ne oldu ???"]));
+/*************************************| T extends object, U extends keyof T    |***************************************/
+function extract_AND_Convert(obj, key) {
+    return obj[key];
+}
+console.log(extract_AND_Convert({ name: "Elmar" }, "name"));
+//<T extends object, U extends keyof T>(obj: T,key: U) => U, T nin keyidi T ye tip olaraq uyqun gelen objectin keyidi
+// T extends {name: string} yeni T genislenib ve onun name adli keyi var ve bu key name di name de string tipdi
+//U da T nin keyinin Tipidi yeni stringdi
+function extract_AND_Convert1(obj, key) {
+    return obj[key];
+}
+console.log(extract_AND_Convert1({ name: "Elmar" }, "name"));
+console.log("******************************* Promislerde 2 sanie gozleme var ***************************************");

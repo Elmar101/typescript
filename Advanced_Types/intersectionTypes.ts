@@ -1,4 +1,4 @@
-console.log(".......................... type ElevationEmployee = Admin & Employee;...................");
+console.log("..........................Intersection type ElevationEmployee = Admin & Employee;...................");
 //Intersection Types - type ElevationEmployee = Admin & Employee;
 
 type Admin = {
@@ -39,4 +39,11 @@ let e2: IElevationEmployee = {
     privileges: ["Front End"],
     startDate: new Date()
 }
+console.log("e2: ", e2);
+/*/
+    interface type -lari miras götirirsə bu zaman iki taypin Intersection (birləşməsi) kimidi
 
+    type IEmployee = {......} type IAdmin = {.......}
+    interface IElevationEmployee extends IAdmin , IEmployee{} == type IElevationEmployee = IAdmin & IEmployee
+    
+/*/

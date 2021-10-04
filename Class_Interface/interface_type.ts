@@ -132,7 +132,13 @@ TObj.printPhrease("interface extends dersi");
 
     }
 
-    constructor(public name: string) {} => class className { name: string; constructor(name:string){this.name = name} }
+    constructor(public name: string) {} => class className {
+                                                    name: string; 
+
+                                                    constructor(name:string){
+                                                        this.name = name
+                                                    } 
+                                            }
     //Angular da dependensi injection ishlemleri nu qayda iledi 
 /*/
 
