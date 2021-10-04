@@ -1,8 +1,0 @@
-1)https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
-
-
-2)tsconfig Docs: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
-
-2)Compiler Config Docs: https://www.typescriptlang.org/docs/handbook/compiler-options.html
-
-3)VS Code TS Debugging: https://code.visualstudio.com/docs/typescript/typescript-debugging

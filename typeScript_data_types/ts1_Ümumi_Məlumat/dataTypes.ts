@@ -9,8 +9,13 @@
         consolda ishlemlerin sonucunu goruruk
 /*/
 
-//let fn = function(): number ve ya let fn = () => number ikiside geriye reqem donderecek fn funuksiasi
+//| let fn = function(): number | ve ya let fn = () => number ikiside geriye reqem donderecek fn funuksiasi
 
+//| let strFn = function(): string
+//| let strFn = () => string
+
+//| let numFn = function(): number 
+//| let numFn = () => number
 function paramsNumberArray(...nums:number[]):void{
     console.log( ...nums )
 }
@@ -88,7 +93,7 @@ console.log("unionData number array is ", unionData)
 interface IPerson {
     name: string;
     lName: string;
-    sayHi:() => string; //{ return string data } sayHi:( () => string)
+    sayHi: () => string; //{ return string data } sayHi:( () => string)
     sayHello():string; // { return string data}
     changeName:()=> void;// bu sadece datani deyisecek 
     //fn:function():string interfacede govde istifade edilmir tesuflerki bu tipde propertiye type vere bilmirik

@@ -49,7 +49,7 @@ class ItDepartment extends Bloc{
     }
 }
 
-let itsDepartment = new ItDepartment(1,"Information Technology","ITS RECOMMENDED DATASET SEARCHES");
+let itsDepartment = new ItDepartment( 1 , "Information Technology" , "ITS RECOMMENDED DATASET SEARCHES" );
 let data1 = itsDepartment.describe("its data -- 1");
 console.log( "data1 " ,data1 );
 itsDepartment.Info();

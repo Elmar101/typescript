@@ -50,7 +50,7 @@ let em1: EM_AND = {
 // A = {1,2,3,4,5,6,7} B = {5,6,7,8,9} => A | B = { 1,2,3,4,5,6,7,8,9 } 
 // A = {1,2,3,4,5,6,7} B = {5,6,7,8,9} => A | B = { 1,2,3,4,5,6,7 }
 // A = {1,2,3,4,5,6,7} B = {5,6,7,8,9} => A | B = { 4,5,6,7,8,9 }
-// A | B => Burada iki Çoxluqdan "Birinin" bütün properitileri olmalidi Ən azindan digerinden bir neçesi olmuyada biler
+// A | B => Burada iki Çoxluqdan "Birinin" bütün properitileri olmalidi Ən azindan - digerinden bir neçesi olmuyada biler
 
 /*/ 
    type EM_OR = AdminEmployee | EmployeeType ;
@@ -182,7 +182,7 @@ vehicle_Fn_AND_TYPE(<Vehicle_AND_Type>c);
 vehicle_Fn_AND_TYPE(t as Vehicle_AND_Type);
 
 /*/
-&=> saxladiqi data ikisinin birlesmesidi Car ve Truckin Ona gore type casting edirik functiona parametir olaraq oturende
+& => saxladiqi data ikisinin birlesmesidi Car ve Truckin Ona gore type casting edirik functiona parametir olaraq oturende
 vehicle_Fn_AND_TYPE(c) asahaqidaki errorla qarsilasiriq ve hemen type cast edirik !!!!
 -'Car' tipi argüman, 'Vehicle_AND_Type' tipindeki parametreye atanamaz.'LoadCargo' özelliği 'Car' türünde eksik, 
   amma 'Truck' tipinde gerekli 
@@ -228,11 +228,11 @@ function animalsFn_OR_union_type(animal: Animals){
     }
 }
 
-let a: Animals = {
+let B: Animals = {
     type: 'birds',
     flyingSpeed: 120,
 }
-animalsFn_OR_union_type( a );
+animalsFn_OR_union_type( B );
 /*/
     let a: Animals = {
         type: 'birds', => type: 'birds' - olduquna görə "a:Birds" type: 'hours' olsaydi "a:Hours"
@@ -247,27 +247,22 @@ animalsFn_OR_union_type( a );
 //********************************| example discIriminated Type Reactin useReduceri|******************************** *//
 console.log("**************** EXAMPLE DISCIRIMINATED TYPE *******************************************")
 
-interface IinitialState { type: string ; n1: number ; n2: number ; }
+interface IinitialState { 
+    type: string ; 
+    n1: number ; 
+    n2: number ; 
+}
 
-interface Iaction{ (a: number, b: number): number; }
+interface Iaction{ 
+    (a: number, b: number): number; 
+}
 
 let ReducerFn = (state: IinitialState, action: Iaction) =>{
     switch (state.type){
-        case 'TOPLAMA':
-            console.log( "sum is  " , action(state.n1, state.n2) );
-            break;
-
-        case 'ÇIXMA':
-            console.log( "diffirent is " ,action(state.n1, state.n2) );
-            break;
-
-        case 'VURMA':
-            console.log( "multiple is " , action(state.n1, state.n2) );
-            break;
-
-        case 'BöLMƏ':
-            console.log( "divide is " ,action(state.n1, state.n2) );
-            break;
+        case 'TOPLAMA': console.log( "sum is  " , action(state.n1, state.n2) );     break;
+        case 'ÇIXMA':   console.log( "diffirent is " ,action(state.n1, state.n2) ); break;
+        case 'VURMA':   console.log( "multiple is " , action(state.n1, state.n2) ); break;
+        case 'BöLMƏ':   console.log( "divide is " ,action(state.n1, state.n2) );    break;
     }
 }
 

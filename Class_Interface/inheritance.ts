@@ -71,7 +71,7 @@ console.log(accountsDepartments.name, " ve admin : ", accountsDepartments.admin)
 
             => constructor(id: number,name: string){
                     super(id,name,2000);
-                    //constructor(id: number,name: string) salary qeyd edilmediyi ichin default oturulmelidi
+                    //constructor(id: number,name: string) => salary qeyd edilmediyi ichin default oturulmelidi
                     //constructor(id: number){super(id,"Default Ad",3000)} id new ile yarananda oturulecek
                }
     3 - ci  

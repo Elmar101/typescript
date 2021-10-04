@@ -10,7 +10,7 @@
                       input.value = " Hello World ! ";
 
 -----------------------------------------------------------------------------------------------------------------------
-    2 ci yol => const input = <HTMLInputElement>document.getElementById("user-input");
+    2 ci yol => const input = <HTMLInputElement>document.getElementById("user-input")!;
                       input.value = " Hello World ! ";
                       
 -----------------------------------------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@
     
 /*/
 
-const input1 = document.getElementById("user-input") ! as HTMLInputElement;
+/* const input1 = document.getElementById("user-input") ! as HTMLInputElement;
       input1.value = " Hello World ! ";
 
 const input2 = <HTMLInputElement>document.getElementById("user-input")!;
@@ -41,7 +41,7 @@ const input3 = document.getElementById("user-input")!;
 const input4 = document.getElementById("user-input");
       if(input4){
            (input4 as HTMLInputElement).value = " Hello World ! ";
-      }
+      } */
 
 
 //****************************************** INDEX PROPERTİES ***************************************/
@@ -54,7 +54,7 @@ interface IErrorContainer {
 
 const errorBag: IErrorContainer = {
     email: "elmar.amanov10@gmail.com",
-    username: "Elmar"
+    username: "Elmar",
 }
 
 console.log(  errorBag.username + " : " + errorBag.email );
@@ -106,7 +106,7 @@ console.log( result6.split('') );
 
 
 /******************************************** NULLISH OPERATOR ************************************ */
-console.log("************************************* NULLISH OPERATOR *******************************");
+console.log("************************************* or ||  *******************************");
 
 let user_UNDEFINED_NAME; //let user_UNDEFINED_NAME = undefined
 let store_OR_UNDEFINED_NAME = user_UNDEFINED_NAME || " Varsayilan Ad = Elmar";
@@ -116,7 +116,7 @@ let user_NULL_NAME = null;
 let store_OR_NULL_NAME = user_NULL_NAME || " Varsayilan Ad = Elmar";
 console.log(" store_OR_NULL_NAME: ", store_OR_NULL_NAME); //" Varsayilan Ad = Elmar";
 
-// || -> or ile işləmlərdə yoxdursa varsayilan dəyəri götürürük
+// || -> or ile işləmlərdə yoxdursa varsayilan dəyəri götürürük yeni 0 || 1 => 1 (null ve undefined sifr demekdir)
 // ama burada məntiqsəl səhf var məsələn biz boş string göndərək
 
 let user_BOSH_STRİNG_NAME = "";
@@ -124,6 +124,10 @@ let store_OR_BOSH_STRİNG_NAME = user_BOSH_STRİNG_NAME || " Varsayilan Ad = Elm
 console.log("store_OR_BOSH_STRİNG_NAME: ", store_OR_NULL_NAME); //" Varsayilan Ad = Elmar";
 
 //|| -> OR ishimize yaramadi buna gore nullish "??"" iki sual => sifir ve ya bosh string gelende undefined qebul etmesin 
+/*/
+    ?? => '' ve ya 0 da undefined qebul etmes boş stringi ve ya sifri bize qaytarsin 
+/*/
+console.log("************************************* NULLISH OPERATOR *******************************");
 
 let user_NULLISH_NAME = '';
 let stor_NULLISH_NAME= user_NULLISH_NAME ?? " Varsayilan Ad = Elmar";
@@ -137,6 +141,12 @@ let user_NULL_NULLISH_NAME = null;
 let store_NULL_NULLISH_NAME = user_NULL_NAME ?? " Varsayilan Ad = Elmar";
 console.log("store_NULL_NULLISH_NAME: ",store_NULL_NULLISH_NAME); //" Varsayilan Ad = Elmar";
 
+let eded = 0;
+let storer_OR_EDED = eded || 1;
+console.log("storer_OR_EDED : ",storer_OR_EDED);// 1
+
+let storer_NULLISH_EDED = eded ?? 1;
+console.log("storer_NULLISH_EDED : ",storer_NULLISH_EDED);// 0
 // && => and optional 
 
 let user_AND_Job = {
@@ -144,7 +154,7 @@ let user_AND_Job = {
 }
 
 let stor_AND_TITLE_NAME= user_AND_Job?.job?.title && user_AND_Job?.job?.title ;
-console.log("stor_AND_TITLE_NAME: ", stor_AND_TITLE_NAME);//\
+console.log("stor_AND_TITLE_NAME: ", stor_AND_TITLE_NAME);// Front-End
 
 
 
