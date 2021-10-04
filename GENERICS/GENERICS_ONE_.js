@@ -106,11 +106,16 @@ function extract_AND_Convert(obj, key) {
     return obj[key];
 }
 console.log(extract_AND_Convert({ name: "Elmar" }, "name"));
-//<T extends object, U extends keyof T>(obj: T,key: U) => U, T nin keyidi T ye tip olaraq uyqun gelen objectin keyidi
+//<T extends object, U extends keyof T>(obj: T,key: U):T[U] => U, T nin keyidi T ye tip olaraq uyqun gelen objectin keyidi
 // T extends {name: string} yeni T genislenib ve onun name adli keyi var ve bu key name di name de string tipdi
 //U da T nin keyinin Tipidi yeni stringdi
+console.log("==============|extract_AND_Convert1|==================");
 function extract_AND_Convert1(obj, key) {
-    return obj[key];
+    let x = " ";
+    for (let key in obj) {
+        x += obj[key] + " ";
+    }
+    return x;
 }
-console.log(extract_AND_Convert1({ name: "Elmar" }, "name"));
+console.log(extract_AND_Convert1({ name: "Elmar", sname: "Amanov", age: 25 }, ["name", "sname", "age"]));
 console.log("******************************* Promislerde 2 sanie gozleme var ***************************************");

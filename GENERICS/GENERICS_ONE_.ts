@@ -71,12 +71,12 @@ let promise: Promise<string> = new Promise((resolve, reject)=>{
      return {...objA, ...objB} // Object.assign(objA, objB);
  }
 //user_One
- let user_One = merge({name: "Elmar",age: 26}, {hoppies:["sport"]});
+ let user_One = merge( {name: "Elmar",age: 26}, {hoppies:["sport"]} );
  console.log(`user_One Name is : ${user_One.name} , age is : ${user_One.age}, hoppies is : ${user_One.hoppies} `);
 
  // user_Two 
- let user_Two = merge<{name: string, age: number},{hoppies: Array<string | number>}>(
-        {name: "Eldar",age: 25}, {hoppies:["sport"]}
+ let user_Two = merge<{name: string, age: number},{hoppies: Array<string | number>}> (
+        {name: "Eldar",age: 25} , { hoppies:["sport"] }
     );
 console.log(`user_Two Name is : ${user_Two.name} , age is : ${user_Two.age}, hoppies is : ${user_Two.hoppies} `);
 
@@ -122,7 +122,7 @@ console.log("problem_One is ", problem_Solution);
 interface Lengths{
     length: number;
 }
-function count_And_Describe<T extends Lengths>(element: T):Array<string | T>{
+function count_And_Describe<T extends Lengths>(element: T):Array<string |  T>{
     /*/ Array<string | T>  eyni yazilisdi (string | T)[] ve ya [T , string] /*/
 
     let text = " Text yoxdur !!! " ;
@@ -135,21 +135,25 @@ console.log("count_And_Describe Arrey data ile ", count_And_Describe( ["Bes Demi
 
 
 /*************************************| T extends object, U extends keyof T    |***************************************/
-function extract_AND_Convert<T extends object, U extends keyof T>(obj: T,key: U){
+function extract_AND_Convert<T extends object, U extends keyof T>(obj: T,key: U):T[U] {
     return obj[key]
 }
 console.log( extract_AND_Convert( {name: "Elmar"},"name" ) );
 
 
-//<T extends object, U extends keyof T>(obj: T,key: U) => U, T nin keyidi T ye tip olaraq uyqun gelen objectin keyidi
+//<T extends object, U extends keyof T>(obj: T,key: U):T[U] => U, T nin keyidi T ye tip olaraq uyqun gelen objectin keyidi
 // T extends {name: string} yeni T genislenib ve onun name adli keyi var ve bu key name di name de string tipdi
 //U da T nin keyinin Tipidi yeni stringdi
+console.log("==============|extract_AND_Convert1|==================")
 
-
-function extract_AND_Convert1<T extends {name: string}, U extends keyof T>(obj: T,key: U){
-    return obj[key]
+function extract_AND_Convert1<T extends {name: string,sname: string,age: number}, U extends Array<keyof T>>(obj: T,key: U){
+    let x=" ";
+    for(let key in obj){
+        x += obj[key] + " ";
+    }
+    return x
 }
-console.log( extract_AND_Convert1( {name: "Elmar"},"name" ) );
+console.log( extract_AND_Convert1( {name: "Elmar",sname:"Amanov",age: 25},["name","sname","age"] ) );
 
 console.log("******************************* Promislerde 2 sanie gozleme var ***************************************");
 
