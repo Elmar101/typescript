@@ -1,0 +1,36 @@
+*******************************************************************************************************************
+
+literal  - kelmesi kelmesine, aynisi, herfi => yeni name = name - herfi uyqunluq
+specify  - dəqiqləşdirmək, yəqinləşdirmək, belirtmek
+known    - bilinen, taninan ,məlum, bəlli
+
+assignable - təyin edilə bilən, atanabilir, verilebilir
+is not assignable - təyin edilə bilməz ,atanamaz
+
+x does not exist in type X - X tipinde x mevcut değildir.
+
+*******************************************************************************************************************
+
+=> void funuksia geriye nese qaytarmir eger qaytarsada undefined qaytarir !!
+!* let x = function myFn():void{ console.log("qaqa x in deyeri undefined-dir") } => x == undefined - true 
+
+*******************************************************************************************************************
+
+=> type  union - type x = string | number | boolean | string[] | number[] 
+type MyBool = true | false;
+type WindowStates = "open" | "closed" | "minimized";
+type LockStates = "locked" | "unlocked";
+type PositiveOddNumbersUnderTen = 1 | 3 | 5 | 7 | 9;
+function getLength(p1: string | string[]):number { return p1.length; }
+
+*******************************************************************************************************************
+
+Bir dəğişkənin tipini öğrənmək üçün - typeof - Bu kəlmədən istifadə edirik 
+string	  |   typeof s === "string"
+number    |   typeof n === "number"
+boolean	  |   typeof b === "boolean"
+undefined |	  typeof undefined === "undefined"
+function  |   typeof f === "function"
+array	  |   Array.isArray(a)
+
+*******************************************************************************************************************
