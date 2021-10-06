@@ -119,3 +119,69 @@ function extract_AND_Convert1(obj, key) {
 }
 console.log(extract_AND_Convert1({ name: "Elmar", sname: "Amanov", age: 25 }, ["name", "sname", "age"]));
 console.log("******************************* Promislerde 2 sanie gozleme var ***************************************");
+/*/
+    eger constrain çoxlu propertisi olan object alirsa o zaman biz hemin objectin türini T ilə məhdudlaşdırırıq
+    <T extends object> BU ŞƏKİLDƏ DEYİLDƏ
+    BU ŞƏKİLDƏ - <T extends {name: string,sname: string,age: number}>
+    DAHA SONRA BİZƏ U-NIN T-NİN KEYİNİN TİPİNDƏ OLMASİNİ DİNAMİKLƏŞDİRMƏLİYİK BUNUN ÜÇÜNDƏ
+
+    U İSƏ BU ŞƏKİLDƏ OLUR -                     < U extends Array<keyof T> >
+    yada ki                                     < U extends any[keyof T] >
+
+    <T extends {name: string,sname: string,age: number}, U extends Array<keyof T>>
+    DATANİ FUNUKSİAYA GÖNDƏRƏNDƏ İSƏ FN( {name: "Elmar",sname:"Amanov",age: 25},["name","sname","age"] )
+/*/
+/*******************************************|GENERICS CLASS|**************************************************/
+console.log("|*************************************|GENERICS CLASS 1|***************************************|");
+class DataStorage {
+    constructor() {
+        this.data = [];
+    }
+    addItem(item) {
+        this.data.push(item);
+    }
+    removeItem(item) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+    getItem() {
+        return [...this.data];
+    }
+}
+let data_storage = new DataStorage();
+data_storage.addItem("Elmar");
+data_storage.addItem("Eldar");
+data_storage.addItem(10);
+data_storage.addItem(["i am iam dinceleyshin", "dinceleyshin", "dinceleyshin"]);
+data_storage.addItem({ name: "Elmar", sname: "Amanov", age: 25 });
+console.log("in the storage of data is ", data_storage.getItem());
+data_storage.removeItem("Elmar");
+data_storage.removeItem(10);
+console.log("in the storage of data is ", data_storage.getItem());
+console.log("|*************************************|GENERICS CLASS 2|***************************************|");
+let text_storage = new DataStorage();
+text_storage.addItem("i am from Azerbaijan");
+text_storage.addItem("i am Front End Developer");
+console.log("before in the text storage of data is ", text_storage.getItem());
+text_storage.removeItem("i am Front End Developer");
+console.log("after in the text storage of data is ", text_storage.getItem());
+/*******************************|PARTIAL TYPE => OLADA OLMAYADA BILER|****************************/
+console.log("/***************************|PARTIAL TYPE => OLADA OLMAYADA BILER|***************************/");
+function creatCourseGoal(title, description, date) {
+    let courseGoal = {};
+    courseGoal.title = title;
+    courseGoal.description = description;
+    courseGoal.date = date;
+    return courseGoal; //{title , description, date}
+}
+/*******************************|UTILTY TYPE READONLY|****************************/
+console.log("/***************************|UTILTY TYPE READONLY|***************************/");
+/*/
+    UTILTY TYPE Readonly DATA OLDUQU KIMI QALIR NESE ELAVE ETMEK VE YA SILMEK DATANIN DEYERINI DEYISMEK OLMUR !!!
+
+    type Readonly<T> = { readonly [P in keyof T]: T[P];
+/*/
+let studentNames = ["Elmar", "Eldar", "Resad"];
+//BU ZAMAN MEN studentNames ARREYINE YENI DEYER ELAVE EDE VE YA SILE BILMIREM
+// literal  - kelmesi kelmesine, aynisi, herfi => yeni name = name - herfi uyqunluq
+// specify  - dəqiqləşdirmək, yəqinləşdirmək, belirtmek
+//known  - bilinen, taninan ,melum,belli
