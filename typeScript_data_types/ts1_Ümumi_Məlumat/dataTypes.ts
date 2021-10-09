@@ -388,3 +388,265 @@ let combineValue: (a: number,b: number) => number;
 combineValue = combineFn;
 
 console.log("combineValue is ", combineValue(5,5) )
+
+
+function pad(s: string, n: number, direction: "left" | "right"): string{return s + n + direction}
+pad("hi", 10, "left");
+
+let s1 = "right"; //s1: string s2 de çözimi etmişik əzizim qaqaşlar
+/*/ 
+    s1 = "right"; bele yazlimda ts deyere baxib deyişənə tip verir !!! 
+    deyer "ne olursa olsun stringdi çünki dirnaq içindədi"
+    pad("hi", 10, s1); => // error: 'string' is not assignable to '"left" | "right"' => s1: string
+/*/  
+//BUNU HELL ETMEKDEN OTRI 
+let s2: "left" | "right" = "right";
+pad("hi", 10, s2);
+
+function map<T, U>(f: (t: T) => U, ts: T): U[]{
+    return [];
+}
+
+let sns = map((n) => n.toString() , [1, 2, 3]);
+
+console.log("sns-", sns)
+
+let z = [1, 2, 3] as const;
+//z.push(102); // error
+//z[0] = 101; // error
+
+let k: ReadonlyArray<number> = [1, 2, 3];
+let p: readonly number[] = [1, 2, 3];
+//k.push(102); // error
+//p[0] = 101; // error
+
+function greet(person: string, date: Date) {
+    console.log(`Hello ${person}, today is ${date.toDateString()}!`);
+}
+   
+  greet("Maddison", new Date());//Hello Maddison, today is Thu Oct 07 2021!
+  //tsc --target es2015 hello.ts eger hello.ts faylin es2015 she gore derelemesini isdeyirsizse
+
+  function printName(obj: { first: string; last?: string }) {
+    //console.log(obj.last.toUpperCase()); => error
+ 
+    if (obj.last !== undefined) {
+     
+      console.log(obj.last.toUpperCase());
+    }
+   
+    // A safe alternative using modern JavaScript syntax:
+    console.log(obj.last?.toUpperCase());//undefined
+}
+printName( { first: "elmar"})
+
+//Bir arayüzü genişletme
+
+interface Animals {
+  name: string
+}
+
+interface Bears extends Animals {
+  honey: boolean
+}
+
+let bears:Bears = {name: "IBear", honey: true };
+console.log("bears: " + JSON.stringify(bears))       
+//Bir türü kesişimler aracılığıyla genişletme
+
+type Animalls = {
+  name: string
+}
+
+type Bear = Animalls & { 
+  honey: boolean 
+}
+
+let bear: Bear = {name: " TBear", honey: true}
+console.log("bear: " + JSON.stringify(bear))
+
+//Type Assertions - Tür İddiaları => typecasting
+/* const myCanvas1 = document.getElementById("main_canvas")! as HTMLCanvasElement;
+const myCanvas2 = <HTMLCanvasElement>document.getElementById("main_canvas")!; */
+
+//deyismez Tür h = "ziya" => error Type '"hell"' is not assignable to type '"hello"'
+let h: "hello" = "hello";
+    h="hello"
+
+
+const req1 = { url: "https://example.com", method: "GET" }; //method is string type 
+handleRequest(req1.url, req1.method);
+
+const req2 = { url: "https://example.com", method: "GET" as "GET"} // method is "GET" type
+handleRequest(req2.url, req2.method);
+
+const req3 = { url: "https://example.com", method: "GET"} as const // method is "GET" type
+handleRequest(req2.url, req2.method); 
+// Bu zaman url: "https://example.com" bu tip  method: "GET" da bu tipdedi 
+
+function handleRequest(url: string, method: string) {
+    console.log(method , " - " , url)
+}
+// as const => deyiseni valuesi tipde edir 
+
+//null undefined     undefined   null
+function doSomething(x: string | null) {
+    if (x === null) {
+      // do nothing
+    } else {
+      console.log("Hello, " + x.toUpperCase());
+    }
+}
+
+/*/ 
+    Null Olmayan Onaylama Operatörü (Sonek!) - Non-null Assertion Operator (Postfix!)
+    ! Herhangi bir ifadeden sonra yazmak ,
+     etkin bir şekilde değerin null bor undefined: olmadığına dair bir tür iddiasıdır :
+/*/
+
+function liveDangerously(x?: number | null) {
+    // No error
+    console.log(x!.toFixed());
+}
+
+
+console.log("*****************************|if -in False qaytardiqi datalar|************************");
+// if -in False qaytardiqi datalar
+
+console.log( "BOŞ STRİNG - " ,  Boolean("") );// false
+console.log( "SİFR STRİNG - " , Boolean(0) );// false
+console.log( "NaN - " ,         Boolean(NaN) );// false
+console.log( "Null - " ,        Boolean(null) );// false
+console.log( "UNDEFİNED - " ,   Boolean(undefined) );// false
+console.log( "ARRAY - " ,       Boolean([].length )); // false   //ARRAYIN YOXLANMASI
+const objCheck = {};
+console.log( "OBJECT - " ,      Boolean(Object.entries(objCheck).length )) ;
+
+function keysOf<T extends object>(obj: T): Array<keyof T> {
+    return Array.from(Object.keys(obj)) as any;
+}
+  
+const objCheck1 = { a: 1, b: 2 };
+keysOf(objCheck1).forEach((key) => console.log(key ,"-",objCheck1[key])); // type of key is "a" | "b"
+
+
+console.log("*****************************|in operatöru ile Objecti yoxlamaq|************************");
+//in operatöru ile Objecti yoxlamaq => property adi varmi => if(propertyAd in ObjectAd) vars trur yoxsa false
+
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+ 
+function move(animal: Fish | Bird) {
+  if ("swim" in animal) {
+    return animal.swim();
+}
+ 
+  return animal.fly();
+}
+let baliq: Fish = { swim(){ console.log('i am baliq')} }// Bele yazlişdan daha çox istifadə edilir !!!
+move(baliq);
+let qush: Bird = { fly:()=> { console.log('i am qush')} }
+move(qush);
+
+
+
+console.log("**************************|instanceof ile yoxlamaq|*************************************");
+//instanceof ile yoxlamaq 
+
+function logValue(x: Date | string) {
+  if (x instanceof Date)  console.log("x Date tipindedi ", x.toUTCString());    // (parameter) x: Date 
+  else  console.log("x string tipindedi ", x.toUpperCase()); //(parameter) x: string 
+}
+
+logValue("Hello str");
+logValue( new Date() )
+
+
+console.log("**********************************|Assignments - Atamalar|**************************************");
+//Assignments - Atamalar => TypeScript, atamanın sağ tarafına bakar ve sol tarafı uygun şekilde bize qaytarar
+//random olaraq  Math.random() qiymet alir ve hemin qiymete gore  r in tipi melum olur r ya 10 yada hello world olur ,
+let r: string | number = Math.random() < 0.5 ? 10 : "hello world!";
+ 
+console.log("r = ", r , " r in tipi ", typeof r); 
+//r =  10  r in tipi  number OR r =  hello world!  r in tipi  string
+
+
+console.log("*************************|Tip predikatlarından istifadə|********************************");
+//=> Using type predicates - Tip predikatlarından istifadə
+ // pet is Fish =>return boolean qaytarmasidi yeni funuksia tru yada false qaytaracaq
+ //parameterName is Type => pet is Fish = boolean 
+type Fishs = { swim: () => void };
+type Birds = { fly: () => void };
+
+function isFish(pet: Fishs | Birds): pet is Fish /*/boolean/*/{
+    return (pet as Fish).swim !== undefined;
+}
+
+let baliqlar: Fishs = { swim(){ console.log('i am baliq')} }
+let isfish = isFish(baliqlar);
+console.log("baliqdirmi:", isfish);//true
+
+let qushlar: Bird = { fly:()=> { console.log('i am qush')} }
+    isfish = isFish(qushlar);
+    console.log("baliqdirmi:", isfish);//false
+
+ 
+    
+console.log("*********************************|Discriminated unions|************************************")
+interface Shapes {
+    kind: "circle" | "square";
+    radius?: number;
+    sideLength?: number;
+}
+
+function getArea1(shape: Shapes) {
+    return Math.PI * shape.radius! ** 2;
+}
+
+// 2 ci yol discrimate unions
+interface Circle {
+    kind: "circle";
+    radius: number;
+  }
+   
+  interface Square {
+    kind: "square";
+    sideLength: number;
+  }
+   
+  type Shape = Circle | Square;
+
+  function getArea2(shape: Shape) {
+    switch (shape.kind) {
+        case "circle" :  return Math.PI * shape.radius ** 2 ; break;
+        case "square" :  return Math.PI * shape.sideLength **2 ; break
+    }
+  }
+
+// 3 ci yol => never 
+/*/ 
+  Exhaustiveness checking - Kapsamlılık kontrolü (never)
+  "never" Türü, her tür tayin edilebilir; ancak, hiçbir tür atanamaz never( never kendisi dışında ). 
+  Bu, daraltmayı kullanabileceğiniz ve never bir switch ifadesinde kapsamlı kontrol yapmak için 
+  açmaya güvenebileceğiniz anlamına gelir .
+  Örneğin, bir ekleme default bizim için getArea şekil atamak çalışır 
+/*/
+interface Circle1 {
+    kind: "circle";
+    radius: number;
+  }
+   
+  interface Square1 {
+    kind: "square";
+    sideLength: number;
+  }
+
+  type Shape1 = Circle1 | Square1;
+
+  function getAreaNever(shape: Shape1) {
+    switch (shape.kind) {
+        case "circle" :  return Math.PI * shape.radius ** 2 ; break;
+        case "square" :  return Math.PI * shape.sideLength **2 ; break
+        default: const _exhaustiveCheck: never = shape; return _exhaustiveCheck;
+    }
+  }
