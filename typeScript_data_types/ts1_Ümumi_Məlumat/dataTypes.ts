@@ -195,7 +195,15 @@ console.log( "typeResalt result is : ", typeResalt("1","2",'num') );
 console.log( "typeResalt result is : ", typeResalt("Elmar ","Amanov","str") );
 //---------------------------indexable interface --------------------//
 //interface and array => Indexable Types
-
+//[index: string]: number | string; - Objectin içindeki propertilerin tipini Melum edir hemde interfacedeki
+/*/ 
+    [ Objectin içndeki properitilerin valuelerinin tiplerini melum edir ]: bura interfacedeki properitilerin 
+     tipini melum edir
+/*/
+//[index: string] => Objectdeki properitiler string tipde olacaq hamisi
+//[]: string => interfaceye diger tipler elave edecemse string sekilinde olacaqlar
+//indexable []: T -> isdeye baqlidi objecte properiti teyin et deyeri =>[burdaki tipde olsun qaqa!!!] 
+// readonly indexable tipinde olan datanin deyisilmez olduqunu deyerini heç yerde deyişə bilmərik
 interface INumberIndexNumber {
     [index: number]: string;
 }
@@ -238,10 +246,69 @@ let StringIndexObj: IStringIndexObj = {
 console.log("StringIndexObj: " + StringIndexObj);
 console.log("StringIndexObj.name: " + StringIndexObj.name);
 console.log("StringIndexObj.sname: " + StringIndexObj.sname);
+/*/
+interface NumberOrStringDictionary {
+    [index: string]: number 
+    length: number; // ok, length is a number
+    name: string; // error
+}
+/*/
+interface NumberOrStringDictionary {
+    [index: string]: number | string; // Objectin içindeki propertilerin tipini Melum edir  hemde interfacedeki
+    length: number; // ok, length is a number
+    name: string; // ok, name is a string
+}
 
+let nmArr: NumberOrStringDictionary = {
+    length: 7,
+    name: "Elmar",
+    //[index: string]: number | string; => Bu diger propertiler kech deyeri string yada number olsun!!!
+    l: 8,
+    sname: "Amanov"
+}
 
+interface NumberOrStringDictionary1 {
+    [index: number]: number | string; //index: number-> Objectin içindeki propertilerin tipini Melum edir
+    // [Objectin içndeki properitilerin tiplerini melum edir]: bura interfacedeki properitilerin tipini melum edir
+    length: number; // ok, length is a number - []: number | string [] -> bundan sonrasina baxir
+    name: string; // ok, name is a string
+}
 
+let nmArray: NumberOrStringDictionary = {
+    length: 7,
+    name: "Elmar",
+    //[index: string]: number | string; => Bu diger propertiler kech deyeri string yada number olsun!!!
+    0: 8,
+    1: "Amanov"
+}
 
+interface NumberOrStringDictionary2 {
+    [index: number | string]: number | string; 
+    id: number; 
+    name: string; 
+}
+
+//let dictonaryArr: NumberOrStringDictionary2 = ["a","b","c"]// error id ve name var
+let dictonaryObj: NumberOrStringDictionary2= {id: 1 , name: "Elmar", sname: "Amanov", 1: "Web Teacher" }
+
+// readonly indexable tipinde olan datanin deyisilmez olduqunu deyerini heç yerde deyişə bilmərik
+interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+let readonlyStringArr:ReadonlyStringArray = ["a","b","c"]
+    //readonlyStringArr[0] = "d" - error
+   // readonlyStringArr.push("d") - error ve sair
+
+interface ReadonlyStringObject {
+    readonly [index: number]: string;
+    x: string
+}
+let readonlyStringObj: ReadonlyStringObject = {
+    x: "A",
+    1: "B",
+    2: "C"
+}
+//readonlyStringObj.1 = "D" => error
 /* interface Animal {
     name: string;
 }
@@ -490,7 +557,7 @@ function handleRequest(url: string, method: string) {
 // as const => deyiseni valuesi tipde edir 
 
 //null undefined     undefined   null
-function doSomething(x: string | null) {
+function doSomethingone(x: string | null) {
     if (x === null) {
       // do nothing
     } else {
@@ -582,7 +649,9 @@ function isFish(pet: Fishs | Birds): pet is Fish /*/boolean/*/{
     return (pet as Fish).swim !== undefined;
 }
 
-let baliqlar: Fishs = { swim(){ console.log('i am baliq')} }
+let baliqlar: Fishs = { 
+    swim(){ console.log('i am baliq')} 
+}
 let isfish = isFish(baliqlar);
 console.log("baliqdirmi:", isfish);//true
 
@@ -650,3 +719,144 @@ interface Circle1 {
         default: const _exhaustiveCheck: never = shape; return _exhaustiveCheck;
     }
   }
+
+//-----------------------------------------------------------------------------------------------------
+console.log("*****************************|... => yerde qalan arreydi !|***************************")
+ // ... => yerde qalan arreydi !
+ function multiply(n: number, ...m: number[]) {
+    return m.map((x) => n * x);
+  }
+  // 'a' gets value [10, 20, 30, 40]
+  const mkk = multiply(10, 1, 2, 3, 4);
+  console.log("mk: ", mkk); //[10, 20, 30, 40]
+
+  //-----------------------------------------------------------------------------------------------------
+  console.log("**************************|Destructuring assignment|********************************");
+  function sum({ a, b, c }) {
+    return a + b + c;
+  }
+  let cma = sum({ a: 10, b: 3, c: 9 });
+  console.log("cem is  ", cma)// cem is 22
+
+ /* Objectin top açıklaması, Destructuring sonra gelir=>{ a, b, c }: { a: number; b: number; c: number }
+  çünki { a: number; b: number; c: number } => Bele Yazlim Objesi Yoxdur Ay Qaqa interface yazmirsanee
+  Object Destructuring di => {a}:{a: string} Unutma !!!
+  /*/
+
+  function suma(  { a, b, c }: { a: number; b: number;c: number }  ) {
+    console.log(a + b + c);
+  }
+
+  //=> Asaqidaki kimide yazmaq olar 
+
+  type ABC = { a: number; b: number; c: number };
+  function sumb({ a, b, c }: ABC) { console.log(a + b + c) }
+  //----------------------------------------------------------------------------------------------------
+  console.log("*************************************|TYPE GENERICS|***************************************");
+
+  type genericsDataType<T> = T ;
+  let gdt: genericsDataType<string> = "Elmar";
+
+  type OrNull<Type> = Type | null;
+    
+  type OneOrMany<Type> = Type | Type[];
+  
+  type OneOrManyOrNull1<Type> = OrNull<OneOrMany<Type>>;
+          
+  type OneOrManyOrNull2<Type> = OneOrMany<Type> | null
+  
+  type OneOrManyOrNullStrings1 = OneOrManyOrNull1<string>;
+              
+  type OneOrManyOrNullStrings2 = OneOrMany<string> | null
+
+  // Array<Type>olan Type[] eyni olduqu kimi ReadonlyArray<Type> ile readonly Type[] eynidi
+
+
+
+
+
+  console.log("****************************************|Tuple Types|****************************************");
+  //Tuple Types - Bu tip Arreyin indexlerinin Hansi Tipde olduqunu Teyin Etmekden ötridi - [number,string,boolean];
+  type StringNumberPair = [string, number];
+  function doSomethingPair(pair: [string, number]):[string, number] {
+    return pair
+  }
+   
+  let pr = doSomethingPair(["hello", 42]);
+  console.log("pair: " , pr);
+
+  function doSomethingPair1(pair: [string, number]){
+    const [a,b] = pair;
+    return a + b
+  }
+   
+  let pr1 = doSomethingPair1(["hello", 42]);
+  console.log("pair: " , pr1);
+
+  interface IStringNumberPair {
+    length: 2;
+    0: string;
+    1: number;
+    slice(start?: number, end?: number): Array<string | number>;
+  }
+
+  type Either2dOr3d = [number, number, number?];
+
+  function setCoordinate(coord: Either2dOr3d) {
+    const [x, y, l] = coord;
+   
+    return console.log(`array ${coord.length} lenght`);
+                                                    
+  }
+
+  setCoordinate([1,2]);
+
+  type StringNumberBooleans = [string, number, ...boolean[]];
+  type StringBooleansNumber = [string, ...boolean[], number];
+  type BooleansStringNumber = [...boolean[], string, number];
+
+  /*/
+    StringNumberBooleansilk iki elemanı sırasıyla stringve numberolan, ancak booleanaşağıdaki 
+    herhangi bir sayıda s olabilen bir demeti tanımlar .
+
+    StringBooleansNumberilk öğesi stringve ardından herhangi bir sayıda booleans olan 
+    ve a ile biten bir demeti tanımlar number.
+
+    BooleansStringNumberbaşlangıç ​​öğeleri herhangi bir sayıda booleans olan ve 
+    stringardından a ile biten bir demeti tanımlar number.
+  /*/
+
+  const snb1: StringNumberBooleans = ["hello", 1];
+  const snb2: StringNumberBooleans = ["beautiful", 2, true];
+  const snb3: StringNumberBooleans = ["world", 3, true, false, true, false, true];
+
+  const sbn1: StringBooleansNumber = ["hello", 1];
+  const sbn2: StringBooleansNumber = ["beautiful", true, 2];
+  const sbn3: StringBooleansNumber = ["world", true, false, true, false, true, 3];
+
+  const bsn1: BooleansStringNumber = ["hello", 1];
+  const bsn2: BooleansStringNumber = [true, "beautiful", 2];
+  const bsn3: BooleansStringNumber = [true, false, true, false, true, "world",  3];
+
+
+  function readButtonInput(...args: [string, number, ...boolean[]]) {
+    const [name, version, ...input] = args;
+    return console.log("name + version + input = ",name +","+ version +","+ input);
+  }
+
+  readButtonInput("hello", 1, true, true);
+  //readonly tuple tip     pair: readonly[number, string]
+
+  function doSomethingReadOnly(pair: readonly [string, number]) {
+    //pair[0] = "hello!"; error !!!
+    return console.log("pair is ", pair);
+  }
+  doSomethingReadOnly(["hello",1]);
+
+  let point = [3, 4] as const;//let point = [3, 4] as const; === let point: readonly [3, 4] Eynidi !!!!
+ 
+  function distanceFromOrigin([x, y]: [number, number]) {
+    return Math.sqrt(x ** 2 + y ** 2);
+  }
+ 
+  //distanceFromOrigin(point); - ERROR ÇÜNKİ DƏYİŞƏNİN VALUESİNİ as const TİPDƏ EDƏNDƏ DƏYİŞƏN -READONLY- OLUR !!!

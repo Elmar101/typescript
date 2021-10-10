@@ -241,6 +241,7 @@ interface ICourseGoal {
     description:string;
     date: Date;
 }
+
 function creatCourseGoal(title:string, description:string, date:Date): ICourseGoal {
     let courseGoal: Partial<ICourseGoal> = {}
         courseGoal.title = title;
@@ -271,3 +272,29 @@ let studentNames: Readonly<string[]> = ["Elmar","Eldar","Resad"];
 // literal  - kelmesi kelmesine, aynisi, herfi => yeni name = name - herfi uyqunluq
 // specify  - dəqiqləşdirmək, yəqinləşdirmək, belirtmek
 //known  - bilinen, taninan ,melum,belli
+
+console.log("*************************************|TYPE GENERICS|***************************************");
+
+type genericsDataType<T> = T ;
+let gdt: genericsDataType<string> = "Elmar";
+/*/
+    type OrNull<Type> = Type | null;
+    
+    type OneOrMany<Type> = Type | Type[];
+    
+    type OneOrManyOrNull1<Type> = OrNull<OneOrMany<Type>>;
+            
+    type OneOrManyOrNull2<Type> = OneOrMany<Type> | null
+    
+    type OneOrManyOrNullStrings1 = OneOrManyOrNull1<string>;
+                
+    type OneOrManyOrNullStrings2 = OneOrMany<string> | null
+/*/
+
+// Array<Type>olan Type[] eyni olduqu kimi ReadonlyArray<Type> ile readonly Type[] eynidi
+
+let x: readonly string[] = [];
+let y: string[] = [];
+
+x = y;
+//y = x; => error - The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.

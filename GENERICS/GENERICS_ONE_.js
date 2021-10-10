@@ -1,4 +1,23 @@
-"use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 console.log("*****************************| GENERICS TYPE (Ümumi Tip) LESSONS |**********************************");
 //let data = []; => data tip olur any[];
 /*/
@@ -13,8 +32,8 @@ console.log("*****************************| GENERICS TYPE (Ümumi Tip) LESSONS |
         *=> arrayi anion tipde etmek elbetde bir tipin mix növlərdə etmək üçün bizim köməyimizə mörtərizə gəlir
             (string | number)[]
 /*/
-let data = [1, "a", 3];
-let dataMixStrNum = [1, "a", 3];
+var data = [1, "a", 3];
+var dataMixStrNum = [1, "a", 3];
 /*/
     let promise: Promise<string> = new Promise((resolve, reject)=>{
 
@@ -40,60 +59,60 @@ let dataMixStrNum = [1, "a", 3];
 
 /*/
 // Ex Promise<string> resolve("string tipde datalar ötirəcək thene") then(str:string => execute code );
-let promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
+var promise = new Promise(function (resolve, reject) {
+    setTimeout(function () {
         resolve("TypeScripti");
     }, 3000);
 });
-promise.then(data => console.log(data.split(''))); //['T', 'y', 'p', 'e', 'S', 'c', 'r', 'i', 'p', 't', 'i']
+promise.then(function (data) { return console.log(data.split('')); }); //['T', 'y', 'p', 'e', 'S', 'c', 'r', 'i', 'p', 't', 'i']
 // Ex Promise<number> resolve("number tipde datalar ötirəcək thene") then(num:number => execute code );
-let promiseNumber = new Promise((resolve, reject) => {
-    setTimeout(() => {
+var promiseNumber = new Promise(function (resolve, reject) {
+    setTimeout(function () {
         resolve(10.978);
     }, 3000);
 });
-promiseNumber.then(data => console.log(data.toFixed())); //11
+promiseNumber.then(function (data) { return console.log(data.toFixed()); }); //11
 /*****************************| CREAT GENERICS FUNCTION |***************************************/
 console.log("*****************************| CREAT GENERICS FUNCTION  |**********************************");
 function merge(objA, objB) {
-    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+    return __assign(__assign({}, objA), objB); // Object.assign(objA, objB);
 }
 //user_One
-let user_One = merge({ name: "Elmar", age: 26 }, { hoppies: ["sport"] });
-console.log(`user_One Name is : ${user_One.name} , age is : ${user_One.age}, hoppies is : ${user_One.hoppies} `);
+var user_One = merge({ name: "Elmar", age: 26 }, { hoppies: ["sport"] });
+console.log("user_One Name is : " + user_One.name + " , age is : " + user_One.age + ", hoppies is : " + user_One.hoppies + " ");
 // user_Two 
-let user_Two = merge({ name: "Eldar", age: 25 }, { hoppies: ["sport"] });
-console.log(`user_Two Name is : ${user_Two.name} , age is : ${user_Two.age}, hoppies is : ${user_Two.hoppies} `);
+var user_Two = merge({ name: "Eldar", age: 25 }, { hoppies: ["sport"] });
+console.log("user_Two Name is : " + user_Two.name + " , age is : " + user_Two.age + ", hoppies is : " + user_Two.hoppies + " ");
 //user_Tree
-let user_Tree = merge({ name: "Rafik", age: 25 }, { info: 'I am a Enjineer' });
-console.log(`user_Tree Name is : ${user_Tree.name} , age is : ${user_Tree.age}, information is : ${user_Tree.info} `);
+var user_Tree = merge({ name: "Rafik", age: 25 }, { info: 'I am a Enjineer' });
+console.log("user_Tree Name is : " + user_Tree.name + " , age is : " + user_Tree.age + ", information is : " + user_Tree.info + " ");
 //EXAMPLE TWO 
 function strNumGeneric(id, name) {
     return { id: id, name: name };
 }
-let X = strNumGeneric(6, "MAX");
+var X = strNumGeneric(6, "MAX");
 console.log("X is ", X);
 //WORKING WITH CONSTRAINT- məhdudlaşdırmaq < T extends Object, U extends Object > Textends number ve sair
 function mergeProble(objA, objB) {
-    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+    return __assign(__assign({}, objA), objB); // Object.assign(objA, objB);
 }
-let problem = mergeProble({ name: "Elmar" }, 30);
+var problem = mergeProble({ name: "Elmar" }, 30);
 console.log("problem_One is ", problem); // { name: "Elmar" }
 // Elbetde cavab yanlisdi {name: "Elmar"} 30 bes hara getdi eger yazlisda sehf varsa code terefde consolda problem
 // niede yoxdur Bu problemleri aradan qaldirmaq ichin extends anahtar kelmesini kulanacayiq
 function mergeProbleConstraintSolution(objA, objB) {
-    return Object.assign(Object.assign({}, objA), objB); // Object.assign(objA, objB);
+    return __assign(__assign({}, objA), objB); // Object.assign(objA, objB);
 }
 /*/
     let problem_Solution = mergeProbleConstraintSolution( { name: "Elmar" }, 30 )
     Argument of type 'number' is not assignable to parameter of type 'object'.
 /*/
 // (T & U ) | ( T | U) => Tipletde iki cür mentiqi ifadə var and - & ve , or - | yaxud
-let problem_Solution = mergeProbleConstraintSolution({ name: "Elmar" }, { age: 26 });
+var problem_Solution = mergeProbleConstraintSolution({ name: "Elmar" }, { age: 26 });
 console.log("problem_One is ", problem_Solution);
 function count_And_Describe(element) {
     /*/ Array<string | T>  eyni yazilisdi (string | T)[] ve ya [T , string] /*/
-    let text = " Text yoxdur !!! ";
+    var text = " Text yoxdur !!! ";
     if (element.length > 1) {
         text = "textin lengthsi is " + element.length;
     }
@@ -111,9 +130,9 @@ console.log(extract_AND_Convert({ name: "Elmar" }, "name"));
 //U da T nin keyinin Tipidi yeni stringdi
 console.log("==============|extract_AND_Convert1|==================");
 function extract_AND_Convert1(obj, key) {
-    let x = " ";
-    for (let key in obj) {
-        x += obj[key] + " ";
+    var x = " ";
+    for (var key_1 in obj) {
+        x += obj[key_1] + " ";
     }
     return x;
 }
@@ -133,21 +152,22 @@ console.log("******************************* Promislerde 2 sanie gozleme var ***
 /*/
 /*******************************************|GENERICS CLASS|**************************************************/
 console.log("|*************************************|GENERICS CLASS 1|***************************************|");
-class DataStorage {
-    constructor() {
+var DataStorage = /** @class */ (function () {
+    function DataStorage() {
         this.data = [];
     }
-    addItem(item) {
+    DataStorage.prototype.addItem = function (item) {
         this.data.push(item);
-    }
-    removeItem(item) {
+    };
+    DataStorage.prototype.removeItem = function (item) {
         this.data.splice(this.data.indexOf(item), 1);
-    }
-    getItem() {
-        return [...this.data];
-    }
-}
-let data_storage = new DataStorage();
+    };
+    DataStorage.prototype.getItem = function () {
+        return __spreadArray([], this.data, true);
+    };
+    return DataStorage;
+}());
+var data_storage = new DataStorage();
 data_storage.addItem("Elmar");
 data_storage.addItem("Eldar");
 data_storage.addItem(10);
@@ -158,7 +178,7 @@ data_storage.removeItem("Elmar");
 data_storage.removeItem(10);
 console.log("in the storage of data is ", data_storage.getItem());
 console.log("|*************************************|GENERICS CLASS 2|***************************************|");
-let text_storage = new DataStorage();
+var text_storage = new DataStorage();
 text_storage.addItem("i am from Azerbaijan");
 text_storage.addItem("i am Front End Developer");
 console.log("before in the text storage of data is ", text_storage.getItem());
@@ -167,7 +187,7 @@ console.log("after in the text storage of data is ", text_storage.getItem());
 /*******************************|PARTIAL TYPE => OLADA OLMAYADA BILER|****************************/
 console.log("/***************************|PARTIAL TYPE => OLADA OLMAYADA BILER|***************************/");
 function creatCourseGoal(title, description, date) {
-    let courseGoal = {};
+    var courseGoal = {};
     courseGoal.title = title;
     courseGoal.description = description;
     courseGoal.date = date;
@@ -180,8 +200,28 @@ console.log("/***************************|UTILTY TYPE READONLY|*****************
 
     type Readonly<T> = { readonly [P in keyof T]: T[P];
 /*/
-let studentNames = ["Elmar", "Eldar", "Resad"];
+var studentNames = ["Elmar", "Eldar", "Resad"];
 //BU ZAMAN MEN studentNames ARREYINE YENI DEYER ELAVE EDE VE YA SILE BILMIREM
 // literal  - kelmesi kelmesine, aynisi, herfi => yeni name = name - herfi uyqunluq
 // specify  - dəqiqləşdirmək, yəqinləşdirmək, belirtmek
 //known  - bilinen, taninan ,melum,belli
+console.log("*************************************|TYPE GENERICS|***************************************");
+var gdt = "Elmar";
+/*/
+    type OrNull<Type> = Type | null;
+    
+    type OneOrMany<Type> = Type | Type[];
+    
+    type OneOrManyOrNull1<Type> = OrNull<OneOrMany<Type>>;
+            
+    type OneOrManyOrNull2<Type> = OneOrMany<Type> | null
+    
+    type OneOrManyOrNullStrings1 = OneOrManyOrNull1<string>;
+                
+    type OneOrManyOrNullStrings2 = OneOrMany<string> | null
+/*/
+// Array<Type>olan Type[] eyni olduqu kimi ReadonlyArray<Type> ile readonly Type[] eynidi
+var x = [];
+var y = [];
+x = y;
+//y = x; => error - The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
