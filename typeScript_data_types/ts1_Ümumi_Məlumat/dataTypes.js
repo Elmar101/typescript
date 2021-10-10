@@ -184,6 +184,28 @@ var StringIndexObj = (_a = {
 console.log("StringIndexObj: " + StringIndexObj);
 console.log("StringIndexObj.name: " + StringIndexObj.name);
 console.log("StringIndexObj.sname: " + StringIndexObj.sname);
+var nmArr = {
+    length: 7,
+    name: "Elmar",
+    //[index: string]: number | string; => Bu diger propertiler kech deyeri string yada number olsun!!!
+    l: 8,
+    sname: "Amanov"
+};
+var nmArray = {
+    length: 7,
+    name: "Elmar",
+    //[index: string]: number | string; => Bu diger propertiler kech deyeri string yada number olsun!!!
+    0: 8,
+    1: "Amanov"
+};
+//let dictonaryArr: NumberOrStringDictionary2 = ["a","b","c"]// error id ve name var
+var dictonaryObj = { id: 1, name: "Elmar", sname: "Amanov", 1: "Web Teacher" };
+var readonlyStringArr = ["a", "b", "c"];
+var readonlyStringObj = {
+    x: "A",
+    1: "B",
+    2: "C"
+};
 var arrList = (_b = {},
     _b["name"] = "Elmar",
     _b["sname"] = "Amanov",
@@ -329,7 +351,7 @@ function handleRequest(url, method) {
 }
 // as const => deyiseni valuesi tipde edir 
 //null undefined     undefined   null
-function doSomething(x) {
+function doSomethingone(x) {
     if (x === null) {
         // do nothing
     }
@@ -392,7 +414,9 @@ console.log("*************************|Tip predikatlarından istifadə|*********
 function isFish(pet) {
     return pet.swim !== undefined;
 }
-var baliqlar = { swim: function () { console.log('i am baliq'); } };
+var baliqlar = {
+    swim: function () { console.log('i am baliq'); }
+};
 var isfish = isFish(baliqlar);
 console.log("baliqdirmi:", isfish); //true
 var qushlar = { fly: function () { console.log('i am qush'); } };
@@ -425,3 +449,97 @@ function getAreaNever(shape) {
             return _exhaustiveCheck;
     }
 }
+//-----------------------------------------------------------------------------------------------------
+console.log("*****************************|... => yerde qalan arreydi !|***************************");
+// ... => yerde qalan arreydi !
+function multiply(n) {
+    var m = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        m[_i - 1] = arguments[_i];
+    }
+    return m.map(function (x) { return n * x; });
+}
+// 'a' gets value [10, 20, 30, 40]
+var mkk = multiply(10, 1, 2, 3, 4);
+console.log("mk: ", mkk); //[10, 20, 30, 40]
+//-----------------------------------------------------------------------------------------------------
+console.log("**************************|Destructuring assignment|********************************");
+function sum(_a) {
+    var a = _a.a, b = _a.b, c = _a.c;
+    return a + b + c;
+}
+var cma = sum({ a: 10, b: 3, c: 9 });
+console.log("cem is  ", cma); // cem is 22
+/* Objectin top açıklaması, Destructuring sonra gelir=>{ a, b, c }: { a: number; b: number; c: number }
+ çünki { a: number; b: number; c: number } => Bele Yazlim Objesi Yoxdur Ay Qaqa interface yazmirsanee
+ Object Destructuring di => {a}:{a: string} Unutma !!!
+ /*/
+function suma(_a) {
+    var a = _a.a, b = _a.b, c = _a.c;
+    console.log(a + b + c);
+}
+function sumb(_a) {
+    var a = _a.a, b = _a.b, c = _a.c;
+    console.log(a + b + c);
+}
+//----------------------------------------------------------------------------------------------------
+console.log("*************************************|TYPE GENERICS|***************************************");
+var gdt = "Elmar";
+// Array<Type>olan Type[] eyni olduqu kimi ReadonlyArray<Type> ile readonly Type[] eynidi
+console.log("****************************************|Tuple Types|****************************************");
+function doSomethingPair(pair) {
+    return pair;
+}
+var pr = doSomethingPair(["hello", 42]);
+console.log("pair: ", pr);
+function doSomethingPair1(pair) {
+    var a = pair[0], b = pair[1];
+    return a + b;
+}
+var pr1 = doSomethingPair1(["hello", 42]);
+console.log("pair: ", pr1);
+function setCoordinate(coord) {
+    var x = coord[0], y = coord[1], l = coord[2];
+    return console.log("array " + coord.length + " lenght");
+}
+setCoordinate([1, 2]);
+/*/
+  StringNumberBooleansilk iki elemanı sırasıyla stringve numberolan, ancak booleanaşağıdaki
+  herhangi bir sayıda s olabilen bir demeti tanımlar .
+
+  StringBooleansNumberilk öğesi stringve ardından herhangi bir sayıda booleans olan
+  ve a ile biten bir demeti tanımlar number.
+
+  BooleansStringNumberbaşlangıç ​​öğeleri herhangi bir sayıda booleans olan ve
+  stringardından a ile biten bir demeti tanımlar number.
+/*/
+var snb1 = ["hello", 1];
+var snb2 = ["beautiful", 2, true];
+var snb3 = ["world", 3, true, false, true, false, true];
+var sbn1 = ["hello", 1];
+var sbn2 = ["beautiful", true, 2];
+var sbn3 = ["world", true, false, true, false, true, 3];
+var bsn1 = ["hello", 1];
+var bsn2 = [true, "beautiful", 2];
+var bsn3 = [true, false, true, false, true, "world", 3];
+function readButtonInput() {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var name = args[0], version = args[1], input = args.slice(2);
+    return console.log("name + version + input = ", name + "," + version + "," + input);
+}
+readButtonInput("hello", 1, true, true);
+//readonly tuple tip     pair: readonly[number, string]
+function doSomethingReadOnly(pair) {
+    //pair[0] = "hello!"; error !!!
+    return console.log("pair is ", pair);
+}
+doSomethingReadOnly(["hello", 1]);
+var point = [3, 4]; //let point = [3, 4] as const; === let point: readonly [3, 4] Eynidi !!!!
+function distanceFromOrigin(_a) {
+    var x = _a[0], y = _a[1];
+    return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+}
+//distanceFromOrigin(point); - ERROR ÇÜNKİ DƏYİŞƏNİN VALUESİNİ as const TİPDƏ EDƏNDƏ DƏYİŞƏN -READONLY- OLUR !!!

@@ -7,7 +7,83 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div>
+        <h1>*****************************|Function Type Expressions|************************************</h1>
+        <pre style="font-size: 22px">
+            function greeter( fn: (a: string) => void ) {
+                fn("Hello, World");
+            }
+        
+            function printToConsole(s: string) {
+                console.log(s);
+            }
+        
+            greeter(printToConsole); => Hello, World
+            
+            ---------------------------------------------------------------------------------------------------
+            => Type ile fn parametresinin tipini yazmaq
+
+            type GreetFunction = (a: string) => void;
+
+            function greeterT(fn: GreetFunction) {
+                fn("Hi, World");
+            }
+            greeterT(printToConsole); => Hi World
+
+            console.log("*******************************|Generic Functions|**********************************");
+
+            function firstElement<Type>(arr: Type[]): Type[] | undefined {
+                return arr;
+            }
+
+            console.log("number of firstElement value is: ",firstElement<number>([1, 2, 3, 4, 5]))
+
+            //-----------------------------------------------------------------------------------------------------
+            function mapFn<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
+                return arr.map(func);// arr.map(item => item )
+            }
+            
+            const parsed = mapFn(["1", "2", "3"], (n) => n );
+            console.log("parsed: ",parsed);//parsed:  [ '1', '2', '3' ]
+
+            function mapFnInt<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
+                return arr.map(func);// arr.map(item => item )
+            }
+            
+            let mp = mapFn(["1", "2", "3"], (n) =>  parseInt(n) );
+            console.log("mp:", mp); //mp: [ 1, 2, 3 ]
+            //-----------------------------------------------------------------------------------------------------
+            // ... => yerde qalan arreydi !
+            function multipli(n: number, ...m: number[]) {
+               return m.map((x) => n * x);
+             }
+             // 'a' gets value [10, 20, 30, 40]
+             const mk = multiply(10, 1, 2, 3, 4);
+             console.log("mk: ", mk); //[10, 20, 30, 40]
+           
+             //-----------------------------------------------------------------------------------------------------
+             console.log("**************************|Destructuring assignment|********************************");
+             function sm({ a, b, c }) {
+               return a + b + c;
+             }
+             let cem = sm({ a: 10, b: 3, c: 9 });
+             console.log("cem is  ", cem);
+             
+            /* Objectin top açıklaması, Destructuring sonra gelir=>{ a, b, c }: { a: number; b: number; c: number }
+             çünki { a: number; b: number; c: number } => Bele Yazlim Objesi Yoxdur Ay Qaqa interface yazmirsanee
+             Object Destructuring di => {a}:{a: string} Unutma !!!
+             /*/
+           
+             function sum1(  { a, b, c }: { a: number; b: number;c: number }  ) {
+               console.log(a + b + c);
+             }
+           
+             //=> Asaqidaki kimide yazmaq olar 
+           
+             type ABD = { a: number; b: number; c: number };
+             function sm1({ a, b, c }: ABD) { console.log(a + b + c) }
+        </pre>  
+    </div>
     <script src="fn1.js"></script>
 </body>
 </html>
