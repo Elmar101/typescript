@@ -16,11 +16,11 @@
 
 //| let numFn = function(): number 
 //| let numFn = () => number
-function paramsNumberArray(...nums:number[]):void{
+function paramsNumberArrayData(...nums:number[]):void{
     console.log( ...nums )
 }
 
-paramsNumberArray(1,2,3,4,5)
+paramsNumberArrayData(1,2,3,4,5)
 /*/ 
     ...params js deki arguments ozeliyidi => ...params: number -> 
     js de arguments ve for ile  arguments arrayini gezib params arrayine yiqmaqdi 
@@ -69,6 +69,177 @@ display(34);
 display(34,21);
 display("34");
 
+
+
+
+console.log("************************************|TİP OPERATORU START|**************************************");
+let strType: string = "Salam Qaqa";
+let typeStr: typeof strType = "typeStr typeof ile strType nin tipini aldi !!!"
+
+function f():{x:number,y:number} { return { x: 10, y: 3 } }
+type rtP = ReturnType<typeof f>; // type rtP = {x:number,y:number}
+
+
+console.log("************************************|TİP OPERATORU END|****************************************");
+
+
+
+console.log("************************************|INDEXED ACCESS TYPES START|********************************");
+type PersonObj = { age: number; name: string; alive: boolean };
+
+type Age = PersonObj["age"]; // type Age = number => PersonObj["age"]; bu number tipde deyer saxlayir Qaqa
+
+type I1 = PersonObj["age" | "name"];      // type I1 = number | string;
+
+type I2 = PersonObj[keyof PersonObj];    //type I2 = string | number | boolean
+
+type AliveOrName = "alive" | "name";
+
+type I3 = PersonObj[AliveOrName];      // type I3 = string | boolean
+
+/*/
+   İstənilən ixtiyari tipli indeksləşdirmənin başqa bir nümunəsi, 
+   "number - [number]"" bir sıra elementlərinin növünü əldə etməkdir. 
+   Bunu typeofbir sıra hərfinin element növünü ələ keçirmək üçün birləşdirə bilərik 
+/*/
+
+const MyArray = [
+    { name: "Alice", age: 15 },
+    { name: "Bob", age: 23 },
+    { name: "Eve", age: 38 },
+  ];
+   
+  type PersonI1 = typeof MyArray;   // type PersonI1 = {name: string; age: number;}[]
+  let personI1: PersonI1 = [ {name:"Elmar", age: 26},{ name: "Bob", age: 23 } ]
+
+  type PersonI2 = typeof MyArray[number]; // type PersonI2 = { name: string; age: number; }
+  let personI2: PersonI2 = {name:"Elmar", age: 26};
+
+  type AgeI1 = typeof MyArray[number]["age"];
+  let ageI1: AgeI1 = 26;
+       
+  type AgeI2 = Person["age"];
+  let ageI2: AgeI2 = 26;  
+  
+  
+  const MyArrayMix = [{ name: "Alice", age: 15 },"hello world", 1, true , [2,3]];
+
+  type PersonMixI1 = typeof MyArrayMix ; //(string | number | boolean | number[] | {name: string; age: number;})[]
+  let personMixI1: PersonMixI1 = [ {name:"Elmar", age: 26},{ name: "Bob", age: 23 } ];
+  let personMixI2: PersonMixI1 = [ 1,2,3,4,5 ];
+  let personMixI3: PersonMixI1 = [ "a","b","c" ];
+  let personMixI4: PersonMixI1 = [[1,2,5,8]]
+  let personMixI5: PersonMixI1 = [1,"Elmar",true,[24,26],{name:"Elik",age: 26}] 
+
+console.log("************************************|INDEXED ACCESS TYPES END|************************************");
+
+
+
+
+
+console.log("************************************|CONDITIONAL TYPES START|*************************************");
+//Conditional Types - Şərtli Növlər => condition ? trueExpression : falseExpression
+interface CAnimal { live(): void; }
+interface CDog extends CAnimal { woof(): void; }
+   
+type Example1 = CDog extends CAnimal ? number : string;// type Example1 = number
+   
+type ExampleC2 = RegExp extends CAnimal ? number : string;//type ExampleC2 = string
+
+interface IdLabel { id: number /* some fields */;}
+interface NameLabel { name: string /* other fields */; }
+   
+function createLabel(id: number): IdLabel;
+function createLabel(name: string): NameLabel;
+function createLabel(nameOrId: string | number): IdLabel | NameLabel;
+function createLabel(nameOrId: string | number): IdLabel | NameLabel { 
+    return typeof nameOrId ===  "number" ? {id: nameOrId } : {name: nameOrId }  
+} 
+let strFn = createLabel("typescript");          //let strFn:NameLabel 
+console.log("strFn: ", strFn);
+let numFn = createLabel(10);                   //let numFn: IdLabel
+console.log("numFn: ", numFn);
+
+
+type NameOrId<T extends number | string> = T extends number ? IdLabel : NameLabel;
+
+function createLabelSome<T extends number | string>(idOrName: T): NameOrId<T> {
+    throw "unimplemented"; 
+   // return typeof idOrName ===  "number" ? {id: idOrName } : {name: idOrName }
+}
+let fTstr = createLabelSome("typescript"); 
+console.log("fTstr: ", typeof fTstr); //fTstr:NameLabel
+
+let fTnum = createLabelSome(90); 
+console.log("fTnum: ", typeof fTnum);//fTnum:IdLabel
+
+let mixFT = createLabelSome(Math.random() ? "hello" : 42);
+console.log("mixFT: ", typeof mixFT);
+console.log("************************************|CONDITIONAL TYPES END|*************************************");
+
+
+
+
+
+
+console.log("*********************************|GENERICS FUNCTION START|****************************************");
+//Generics Function Type
+function identityFn<Type>(arg: Type): Type { return arg; }
+let myIdentityFn: <Type>(arg: Type) => Type = identityFn;
+
+//MÜXTƏLİF ADDA NÖVİ YAZMAQDA OLAR 
+let myIdentityFn1: <Type>(arg: Type) => Type = <T>(arg:T )=> arg
+
+let myIdentityFn2: <Input>(arg: Input) => Input = identityFn;
+
+// OBJECTİN DESTRUCTİNG 
+let myIdentityFn3: { <Type>(arg: Type): Type } = identityFn;
+
+// İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ 
+interface GenericIdentityFn {
+    <Type>(arg: Type): Type;
+}
+let myIdentityFn4: GenericIdentityFn = identityFn;
+/*/ 
+  İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ YUXARIDA BIZ INTERFACEYE TIP VERMEDIK
+  BU ZAMAN FUNCTIONUN ÖZİNƏ TİP VERDİK => <Type>(arg: Type): Type;
+  AMA BIZ INTERFACEYE TIP ÖTİRMƏSİ EDƏ BİLƏRİK AŞAĞIDAKI KİMİ
+  interface GenericIdentityGFn<Type>{(arg: Type): Type; }
+/*/
+interface IGenericIdentityFn<Type> {
+    (arg: Type): Type;
+}
+   
+function identityIFn<Type>(arg: Type): Type { return arg }
+
+let myIdentityIfn: IGenericIdentityFn<number> = identityIFn;
+
+console.log("***********************************|GENERICS FUNCTION END|**************************************");
+
+
+
+console.log("*************************************|GENERICS CLASS START|*************************************");
+class CGenericNumber<NumType> {
+    //zeroValue: NumType;//Property 'zeroValue' has no initializer and is not definitely assigned in the constructor.
+    zeroValue!: NumType;//=> YUXARIDAKI KIMI ERRORDU 
+    add!: (x: NumType, y: NumType) => NumType;
+    multy: ((x: NumType, y: NumType) => NumType) | undefined;// multy: undefined; nin undefined olmasidi 
+}
+
+let myCGenericNumber = new CGenericNumber<number>();
+myCGenericNumber.zeroValue = 0;
+myCGenericNumber.add = function (x, y) { return x + y };
+myCGenericNumber.multy = function (x, y) { return x * y };
+
+
+
+console.log("*************************************|GENERICS CLASS END|***************************************");
+
+
+
+
+console.log("*******************************|ARRAY DISTRUCTING TUPLE START|**********************************");
+
 //array distructuring tuple
 let arr : Array<number> = [35, 21];
 let [x, y] : Array<number> = arr;
@@ -79,6 +250,13 @@ let j: any;
 for(j in dataArr) {
     console.log(j+"- ci: "+dataArr[j]);
 }
+
+console.log("*******************************|ARRAY DISTRUCTING TUPLE END|************************************");
+
+
+
+console.log("******************************|UNION TYPES START|***********************************************");
+
 //unions type
 let unionData: number | number[] ;
 unionData = 78;
@@ -89,6 +267,11 @@ console.log("unionData number array is ", unionData)
     tuple type arrayin indexlerinin hansi tipde olmasi [number,number,string]
     ex => let arr:[number,number,string] = [1,2,"Hello"]
 /*/
+
+console.log("******************************|UNION TYPES END|*************************************************");
+
+
+console.log("******************************|INTERFACE START|*************************************************");
 // interface arayuz 
 interface IPerson {
     name: string;
@@ -115,6 +298,16 @@ let Person: IPerson = {
 }
 console.log("person info : ", Person.name, Person.lName, 
                               Person.sayHi(),Person.changeName())
+
+
+
+
+console.log("******************************|INTERFACE END|*************************************************");
+
+
+
+
+console.log("******************************|FUNCTION UNION TYPE START|************************************");
 
 // function uniontype
 
@@ -147,6 +340,10 @@ function combine (n1: number | string, n2: number | string){
 console.log( "combine result is : ", combine(1,2) );
 console.log( "combine result is : ", combine("Elmar ","Amanov") );
 
+console.log("******************************|FUNCTION UNION TYPE END|************************************");
+
+
+console.log("******************************|LITERAL START|*************************************************");
 //------------------------------Literal Type  --------------------//
 
 function literalRes (
@@ -169,6 +366,11 @@ console.log( "literalRes result is : ", literalRes(1,2,'num') );
 console.log( "literalRes result is : ", literalRes("1","2",'num') );
 console.log( "literalRes result is : ", literalRes("Elmar ","Amanov","str") );
 
+console.log("******************************|LITERAL END|***************************************************");
+
+
+
+console.log("******************************|TYPE START|****************************************************");
 //-------------------- type -------------------------------------------//
 
 type NUM_STR =  number | string;
@@ -193,6 +395,12 @@ function typeResalt (
 console.log( "typeResalt result is : ", typeResalt(1,2,'num') );
 console.log( "typeResalt result is : ", typeResalt("1","2",'num') );
 console.log( "typeResalt result is : ", typeResalt("Elmar ","Amanov","str") );
+
+console.log("******************************|TYPE END|****************************************************");
+
+
+
+console.log("******************************|INDEXABLE INTERFACE START|************************************");
 //---------------------------indexable interface --------------------//
 //interface and array => Indexable Types
 //[index: string]: number | string; - Objectin içindeki propertilerin tipini Melum edir hemde interfacedeki
@@ -226,6 +434,19 @@ interface IStringIndexObj {
 }
 
 //---------------------------indexable interface --------------------//
+interface personIndexableTypesList {
+    [name: string]: string;
+}
+
+let arrList: personIndexableTypesList = {
+    ["name"]: "Elmar",
+    ["sname"]: "Amanov",
+    info: " Baku is nice city"
+} 
+
+console.log( "arrList", arrList )
+console.log( "arrList['name']: ", arrList['name'] )
+console.log( "arrList['name']: ", arrList.name )
 /*/
 interface indexableType {
     [index: string]: string;
@@ -291,6 +512,9 @@ interface NumberOrStringDictionary2 {
 //let dictonaryArr: NumberOrStringDictionary2 = ["a","b","c"]// error id ve name var
 let dictonaryObj: NumberOrStringDictionary2= {id: 1 , name: "Elmar", sname: "Amanov", 1: "Web Teacher" }
 
+console.log("******************************|INDEXABLE INTERFACE END|***************************************");
+
+console.log("******************************|READONLY INDEXABLE INTERFACE START|****************************");
 // readonly indexable tipinde olan datanin deyisilmez olduqunu deyerini heç yerde deyişə bilmərik
 interface ReadonlyStringArray {
     readonly [index: number]: string;
@@ -309,42 +533,9 @@ let readonlyStringObj: ReadonlyStringObject = {
     2: "C"
 }
 //readonlyStringObj.1 = "D" => error
-/* interface Animal {
-    name: string;
-}
-   
-interface Dog extends Animal {
-    breed: string;
-}
-   
-// Error: indexing with a numeric string might 
-//get you a completely separate type of Animal!
 
-interface NotOkay {
-    [x: number]: Animal;
-//'number' index type 'Animal' is not assignable 
-//to 'string' index type 'Dog'.
-    [x: string]: Dog;
-} */
+console.log("******************************|READONLY INDEXABLE INTERFACE END|****************************");
 
-
-
-
-
-
- interface personIndexableTypesList {
-    [name: string]: string;
-}
-
-let arrList: personIndexableTypesList = {
-    ["name"]: "Elmar",
-    ["sname"]: "Amanov",
-    info: " Baku is nice city"
-} 
-
-console.log( "arrList", arrList )
-console.log( "arrList['name']: ", arrList['name'] )
-console.log( "arrList['name']: ", arrList.name )
 
 //---------------------------interface inheritance (extends miras alma) -----------//
 

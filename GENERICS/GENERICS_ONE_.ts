@@ -298,3 +298,76 @@ let y: string[] = [];
 
 x = y;
 //y = x; => error - The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+
+
+
+
+console.log("*************************************|GENERICS FUNCTION|***************************************");
+
+function identityGFn<Type>(arg: Type): Type { return arg; }
+let myIdentityGFn: <Type>(arg: Type) => Type = identityGFn;
+
+//MÜXTƏLİF ADDA NÖVİ YAZMAQDA OLAR 
+let myIdentityGFn1: <Type>(arg: Type) => Type = <T>(arg:T )=> arg
+
+let myIdentityGFn2: <Input>(arg: Input) => Input = identityGFn;
+
+// OBJECTİN DESTRUCTİNG 
+let myIdentityGFn3: { <Type>(arg: Type): Type } = identityGFn;
+
+// İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ 
+function identityGIFn<Type>(arg: Type): Type { return arg; }
+interface GenericIdentityGFn {
+    <Type>(arg: Type): Type;
+}
+let myIdentityFn4: GenericIdentityGFn = identityGIFn;
+/*/ 
+  İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ YUXARIDA BIZ INTERFACEYE TIP VERMEDIK
+  BU ZAMAN FUNCTIONUN ÖZİNƏ TİP VERDİK => <Type>(arg: Type): Type;
+  AMA BIZ INTERFACEYE TIP ÖTİRMƏSİ EDƏ BİLƏRİK AŞAĞIDAKI KİMİ
+  interface GenericIdentityGFn<Type>{(arg: Type): Type; }
+/*/
+interface IGenericIdentityFn<Type> {
+    (arg: Type): Type;
+}
+   
+function identityIFn<Type>(arg: Type): Type { return arg }
+
+let myIdentityIfn: IGenericIdentityFn<number> = identityIFn;
+
+
+
+
+
+console.log("*************************************|GENERICS CLASS|***************************************");
+class GenericNumber<NumType> {
+    //zeroValue: NumType;//Property 'zeroValue' has no initializer and is not definitely assigned in the constructor.
+    zeroValue!: NumType;//=> YUXARIDAKI KIMI ERRORDU 
+    add!: (x: NumType, y: NumType) => NumType;
+    multy: ((x: NumType, y: NumType) => NumType) | undefined;// multy: undefined; nin undefined olmasidi 
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function (x, y) { return x + y };
+myGenericNumber.multy = function (x, y) { return x * y };
+
+//Generic Constraints - Ümumi məhdudiyyətlər -EXTENDS 
+
+interface Lengthwise {
+    length: number;
+}
+   
+function loggingIdentity<Type extends Lengthwise>(arg: Type): Type {
+    console.log("arg length is ",arg.length); // Now we know it has a .length property, so no more error
+    return arg;
+}
+
+loggingIdentity({ length: 10, value: 3 ,x:9});
+
+//Keyof Type Operator - Açar Tip Operatoru
+type Point = { x: number; y: number };
+type P = keyof Point;
+
+
+

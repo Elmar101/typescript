@@ -236,3 +236,111 @@ console.log("****************************************|Tuple Types|**************
   function doSomethingReadOnlyP(pair: readonly [string, number]) {
     //pair[0] = "hello!"; error !!!
   }
+
+
+
+
+
+console.log("************************************|TİP OPERATORU START|**************************************");
+
+  let strTypeA: string = "Salam Qaqa";
+  let typeStrB: typeof strTypeA = "typeStr typeof ile strType nin tipini aldi !!!"
+  
+  function fc():{x:number,y:number} { return { x: 10, y: 3 } }
+  type rtL = ReturnType<typeof fc>; // type rtL = {x:number,y:number}
+  
+  
+  
+console.log("************************************|TİP OPERATORU END|****************************************");
+
+
+console.log("************************************|CONDITIONAL TYPES START|*************************************");
+//Conditional Types - Şərtli Növlər => condition ? trueExpression : falseExpression
+interface CAnimal { live(): void; }
+interface CDog extends CAnimal { woof(): void; }
+   
+type ExampleFn1 = CDog extends CAnimal ? number : string;// type Example1 = number
+   
+type ExampleFnC2 = RegExp extends CAnimal ? number : string;//type ExampleC2 = string
+
+interface IdLabel { id: number /* some fields */;}
+interface NameLabel { name: string /* other fields */; }
+   
+function createLabelFn(id: number): IdLabel;
+function createLabelFn(name: string): NameLabel;
+function createLabelFn(nameOrId: string | number): IdLabel | NameLabel;
+function createLabelFn(nameOrId: string | number): IdLabel | NameLabel { 
+    return typeof nameOrId ===  "number" ? {id: nameOrId } : {name: nameOrId }  
+} 
+let strFn1 = createLabelFn("typescript");          //let strFn:NameLabel 
+console.log("strFn: ", strFn);
+let numFn1 = createLabelFn(10);                   //let numFn: IdLabel
+console.log("numFn: ", numFn);
+
+
+type NameOrIdFn<T extends number | string> = T extends number ? IdLabel : NameLabel;
+
+function createLabelFnSome<T extends number | string>(idOrName: T): NameOrIdFn<T> {
+    throw "unimplemented"; 
+   // return typeof idOrName ===  "number" ? {id: idOrName } : {name: idOrName }
+}
+let fTstr1 = createLabelFnSome("typescript"); 
+console.log("fTstr: ", typeof fTstr1); //fTstr:NameLabel
+
+let fTnum1 = createLabelFnSome(90); 
+console.log("fTnum: ", typeof fTnum1);//fTnum:IdLabel
+
+let mixFT1 = createLabelFnSome(Math.random() ? "hello" : 42);
+console.log("mixFT: ", typeof mixFT1);
+console.log("************************************|CONDITIONAL TYPES END|*************************************");
+
+
+
+
+
+
+console.log("***********************************|GENERICS FUNCTION|****************************************")
+//Generics Function Type
+function identityAFn<Type>(arg: Type): Type { return arg; }
+let myIdentityAFn: <Type>(arg: Type) => Type = identityFn;
+
+//MÜXTƏLİF ADDA NÖVİ YAZMAQDA OLAR 
+let myIdentityAFn1: <Type>(arg: Type) => Type = <T>(arg:T )=> arg
+
+let myIdentityAFn2: <Input>(arg: Input) => Input = identityFn;
+
+// OBJECTİN DESTRUCTİNG 
+let myIdentityAFn3: { <Type>(arg: Type): Type } = identityAFn;
+
+// İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ 
+interface GenericIdentityFn {
+    <Type>(arg: Type): Type;
+}
+let myIdentityAFn4: GenericIdentityFn = identityAFn;
+/*/ 
+  İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ YUXARIDA BIZ INTERFACEYE TIP VERMEDIK
+  BU ZAMAN FUNCTIONUN ÖZİNƏ TİP VERDİK => <Type>(arg: Type): Type;
+  AMA BIZ INTERFACEYE TIP ÖTİRMƏSİ EDƏ BİLƏRİK AŞAĞIDAKI KİMİ
+  interface GenericIdentityGFn<Type>{(arg: Type): Type; }
+/*/
+interface IGenericIdentityFn<Type> {
+    (arg: Type): Type;
+}
+   
+function identityAIFn<Type>(arg: Type): Type { return arg }
+
+let myIdentityAIfn: IGenericIdentityFn<number> = identityAIFn;
+
+console.log("*************************************|GENERICS CLASS|***************************************");
+class GenericNumber<NumType> {
+    //zeroValue: NumType;//Property 'zeroValue' has no initializer and is not definitely assigned in the constructor.
+    zeroValue!: NumType;//=> YUXARIDAKI KIMI ERRORDU 
+    add!: (x: NumType, y: NumType) => NumType;
+    multy: ((x: NumType, y: NumType) => NumType) | undefined;// multy: undefined; nin undefined olmasidi 
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function (x, y) { return x + y };
+myGenericNumber.multy = function (x, y) { return x * y };
+

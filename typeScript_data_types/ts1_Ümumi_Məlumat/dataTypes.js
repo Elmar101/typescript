@@ -14,14 +14,14 @@ var _a, _b;
 //| let strFn = () => string
 //| let numFn = function(): number 
 //| let numFn = () => number
-function paramsNumberArray() {
+function paramsNumberArrayData() {
     var nums = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         nums[_i] = arguments[_i];
     }
     console.log.apply(console, nums);
 }
-paramsNumberArray(1, 2, 3, 4, 5);
+paramsNumberArrayData(1, 2, 3, 4, 5);
 /*/
     ...params js deki arguments ozeliyidi => ...params: number ->
     js de arguments ve for ile  arguments arrayini gezib params arrayine yiqmaqdi
@@ -66,6 +66,77 @@ function display(a, b) {
 display(34);
 display(34, 21);
 display("34");
+console.log("************************************|TİP OPERATORU START|**************************************");
+var strType = "Salam Qaqa";
+var typeStr = "typeStr typeof ile strType nin tipini aldi !!!";
+function f() { return { x: 10, y: 3 }; }
+console.log("************************************|TİP OPERATORU END|****************************************");
+console.log("************************************|INDEXED ACCESS TYPES START|********************************");
+/*/
+   İstənilən ixtiyari tipli indeksləşdirmənin başqa bir nümunəsi,
+   "number - [number]"" bir sıra elementlərinin növünü əldə etməkdir.
+   Bunu typeofbir sıra hərfinin element növünü ələ keçirmək üçün birləşdirə bilərik
+/*/
+var MyArray = [
+    { name: "Alice", age: 15 },
+    { name: "Bob", age: 23 },
+    { name: "Eve", age: 38 },
+];
+var personI1 = [{ name: "Elmar", age: 26 }, { name: "Bob", age: 23 }];
+var personI2 = { name: "Elmar", age: 26 };
+var ageI1 = 26;
+var ageI2 = 26;
+var MyArrayMix = [{ name: "Alice", age: 15 }, "hello world", 1, true, [2, 3]];
+var personMixI1 = [{ name: "Elmar", age: 26 }, { name: "Bob", age: 23 }];
+var personMixI2 = [1, 2, 3, 4, 5];
+var personMixI3 = ["a", "b", "c"];
+var personMixI4 = [[1, 2, 5, 8]];
+var personMixI5 = [1, "Elmar", true, [24, 26], { name: "Elik", age: 26 }];
+console.log("************************************|INDEXED ACCESS TYPES END|************************************");
+console.log("************************************|CONDITIONAL TYPES START|*************************************");
+function createLabel(nameOrId) {
+    return typeof nameOrId === "number" ? { id: nameOrId } : { name: nameOrId };
+}
+var strFn = createLabel("typescript"); //let strFn:NameLabel 
+console.log("strFn: ", strFn);
+var numFn = createLabel(10); //let numFn: IdLabel
+console.log("numFn: ", numFn);
+function createLabelSome(idOrName) {
+    throw "unimplemented";
+    // return typeof idOrName ===  "number" ? {id: idOrName } : {name: idOrName }
+}
+var fTstr = createLabelSome("typescript");
+console.log("fTstr: ", typeof fTstr); //fTstr:NameLabel
+var fTnum = createLabelSome(90);
+console.log("fTnum: ", typeof fTnum); //fTnum:IdLabel
+var mixFT = createLabelSome(Math.random() ? "hello" : 42);
+console.log("mixFT: ", typeof mixFT);
+console.log("************************************|CONDITIONAL TYPES END|*************************************");
+console.log("*********************************|GENERICS FUNCTION START|****************************************");
+//Generics Function Type
+function identityFn(arg) { return arg; }
+var myIdentityFn = identityFn;
+//MÜXTƏLİF ADDA NÖVİ YAZMAQDA OLAR 
+var myIdentityFn1 = function (arg) { return arg; };
+var myIdentityFn2 = identityFn;
+// OBJECTİN DESTRUCTİNG 
+var myIdentityFn3 = identityFn;
+var myIdentityFn4 = identityFn;
+function identityIFn(arg) { return arg; }
+var myIdentityIfn = identityIFn;
+console.log("***********************************|GENERICS FUNCTION END|**************************************");
+console.log("*************************************|GENERICS CLASS START|*************************************");
+var CGenericNumber = /** @class */ (function () {
+    function CGenericNumber() {
+    }
+    return CGenericNumber;
+}());
+var myCGenericNumber = new CGenericNumber();
+myCGenericNumber.zeroValue = 0;
+myCGenericNumber.add = function (x, y) { return x + y; };
+myCGenericNumber.multy = function (x, y) { return x * y; };
+console.log("*************************************|GENERICS CLASS END|***************************************");
+console.log("*******************************|ARRAY DISTRUCTING TUPLE START|**********************************");
 //array distructuring tuple
 var arr = [35, 21];
 var x = arr[0], y = arr[1];
@@ -76,12 +147,20 @@ var j;
 for (j in dataArr) {
     console.log(j + "- ci: " + dataArr[j]);
 }
+console.log("*******************************|ARRAY DISTRUCTING TUPLE END|************************************");
+console.log("******************************|UNION TYPES START|***********************************************");
 //unions type
 var unionData;
 unionData = 78;
 console.log("unionData number is ", unionData);
 unionData = [1, 2, 3, 4, 5];
 console.log("unionData number array is ", unionData);
+/*/
+    tuple type arrayin indexlerinin hansi tipde olmasi [number,number,string]
+    ex => let arr:[number,number,string] = [1,2,"Hello"]
+/*/
+console.log("******************************|UNION TYPES END|*************************************************");
+console.log("******************************|INTERFACE START|*************************************************");
 var Person = {
     name: "elmar",
     lName: "amanov",
@@ -97,6 +176,8 @@ var Person = {
     changeName: function () { Person.name = "eldar"; }
 };
 console.log("person info : ", Person.name, Person.lName, Person.sayHi(), Person.changeName());
+console.log("******************************|INTERFACE END|*************************************************");
+console.log("******************************|FUNCTION UNION TYPE START|************************************");
 var UnionData = {
     progName: "typeScript",
     commentLine: function () { return "ts is good"; }
@@ -122,6 +203,8 @@ function combine(n1, n2) {
 }
 console.log("combine result is : ", combine(1, 2));
 console.log("combine result is : ", combine("Elmar ", "Amanov"));
+console.log("******************************|FUNCTION UNION TYPE END|************************************");
+console.log("******************************|LITERAL START|*************************************************");
 //------------------------------Literal Type  --------------------//
 function literalRes(n1, n2, literalTypeData) {
     var result;
@@ -139,6 +222,8 @@ function literalRes(n1, n2, literalTypeData) {
 console.log("literalRes result is : ", literalRes(1, 2, 'num'));
 console.log("literalRes result is : ", literalRes("1", "2", 'num'));
 console.log("literalRes result is : ", literalRes("Elmar ", "Amanov", "str"));
+console.log("******************************|LITERAL END|***************************************************");
+console.log("******************************|TYPE START|****************************************************");
 function typeResalt(n1, n2, literalTypeData) {
     var result;
     if (typeof n1 === "number" && typeof n2 === "number"
@@ -155,6 +240,8 @@ function typeResalt(n1, n2, literalTypeData) {
 console.log("typeResalt result is : ", typeResalt(1, 2, 'num'));
 console.log("typeResalt result is : ", typeResalt("1", "2", 'num'));
 console.log("typeResalt result is : ", typeResalt("Elmar ", "Amanov", "str"));
+console.log("******************************|TYPE END|****************************************************");
+console.log("******************************|INDEXABLE INTERFACE START|************************************");
 var arrNumberIndex = ["Bob", "Fred"];
 var obj = {
     1: "elmar",
@@ -164,7 +251,14 @@ console.log("myArray: " + arrNumberIndex);
 console.log("myArray[0]: " + arrNumberIndex[0]);
 console.log("myArray[1]: " + arrNumberIndex[1]);
 var myIndexArr = arrNumberIndex[0];
-//---------------------------indexable interface --------------------//
+var arrList = (_a = {},
+    _a["name"] = "Elmar",
+    _a["sname"] = "Amanov",
+    _a.info = " Baku is nice city",
+    _a);
+console.log("arrList", arrList);
+console.log("arrList['name']: ", arrList['name']);
+console.log("arrList['name']: ", arrList.name);
 /*/
 interface indexableType {
     [index: string]: string;
@@ -176,11 +270,11 @@ interface indexableType {
    [index: string]: string; bundan ancaq objekt yaratmaq
    olar {name: "Elmar",.......}
 /*/
-var StringIndexObj = (_a = {
+var StringIndexObj = (_b = {
         name: "elmar"
     },
-    _a["sname"] = "Amanov",
-    _a);
+    _b["sname"] = "Amanov",
+    _b);
 console.log("StringIndexObj: " + StringIndexObj);
 console.log("StringIndexObj.name: " + StringIndexObj.name);
 console.log("StringIndexObj.sname: " + StringIndexObj.sname);
@@ -200,20 +294,16 @@ var nmArray = {
 };
 //let dictonaryArr: NumberOrStringDictionary2 = ["a","b","c"]// error id ve name var
 var dictonaryObj = { id: 1, name: "Elmar", sname: "Amanov", 1: "Web Teacher" };
+console.log("******************************|INDEXABLE INTERFACE END|***************************************");
+console.log("******************************|READONLY INDEXABLE INTERFACE START|****************************");
 var readonlyStringArr = ["a", "b", "c"];
 var readonlyStringObj = {
     x: "A",
     1: "B",
     2: "C"
 };
-var arrList = (_b = {},
-    _b["name"] = "Elmar",
-    _b["sname"] = "Amanov",
-    _b.info = " Baku is nice city",
-    _b);
-console.log("arrList", arrList);
-console.log("arrList['name']: ", arrList['name']);
-console.log("arrList['name']: ", arrList.name);
+//readonlyStringObj.1 = "D" => error
+console.log("******************************|READONLY INDEXABLE INTERFACE END|****************************");
 var drummer = {
     age: 25,
     name: "Elmar"

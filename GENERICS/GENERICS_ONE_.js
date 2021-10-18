@@ -225,3 +225,31 @@ var x = [];
 var y = [];
 x = y;
 //y = x; => error - The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+console.log("*************************************|GENERICS FUNCTION|***************************************");
+function identityGFn(arg) { return arg; }
+var myIdentityGFn = identityGFn;
+//MÜXTƏLİF ADDA NÖVİ YAZMAQDA OLAR 
+var myIdentityGFn1 = function (arg) { return arg; };
+var myIdentityGFn2 = identityGFn;
+// OBJECTİN DESTRUCTİNG 
+var myIdentityGFn3 = identityGFn;
+// İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ 
+function identityGIFn(arg) { return arg; }
+var myIdentityFn4 = identityGIFn;
+function identityIFn(arg) { return arg; }
+var myIdentityIfn = identityIFn;
+console.log("*************************************|GENERICS CLASS|***************************************");
+var GenericNumber = /** @class */ (function () {
+    function GenericNumber() {
+    }
+    return GenericNumber;
+}());
+var myGenericNumber = new GenericNumber();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function (x, y) { return x + y; };
+myGenericNumber.multy = function (x, y) { return x * y; };
+function loggingIdentity(arg) {
+    console.log("arg length is ", arg.length); // Now we know it has a .length property, so no more error
+    return arg;
+}
+loggingIdentity({ length: 10, value: 3, x: 9 });

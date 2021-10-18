@@ -544,3 +544,40 @@ type OneOrManyOrNullStrings2 = OneOrMany<string> | null
   }
  
   //distanceFromOrigin(point); - ERROR ÇÜNKİ DƏYİŞƏNİN VALUESİNİ as const TİPDƏ EDƏNDƏ DƏYİŞƏN -READONLY- OLUR !!!
+
+console.log("*********************************|GENERICS FUNCTION START|**************************************");
+    //Generics Function Type
+
+    function identityFn<Type>(arg: Type): Type { return arg; }
+
+    let myIdentityFn: <Type>(arg: Type) => Type = identityFn;
+
+    //MÜXTƏLİF ADDA NÖVİ YAZMAQDA OLAR 
+    let myIdentityFn1: <Type>(arg: Type) => Type = <T>(arg:T )=> arg
+
+    let myIdentityFn2: <Input>(arg: Input) => Input = identityFn;
+
+    // OBJECTİN DESTRUCTİNG 
+    let myIdentityFn3: { <Type>(arg: Type): Type } = identityFn;
+
+    // İNTERFACE ŞƏKLİNDƏ YAZAQ İNDİ 
+    interface GenericIdentityFn {
+        <Type>(arg: Type): Type;
+    }
+    let myIdentityFn4: GenericIdentityFn = identityFn;
+
+
+console.log("***********************************|GENERICS FUNCTION END|**************************************");
+
+console.log("*************************************|GENERICS CLASS|***************************************");
+class GenericNumber<NumType> {
+    //zeroValue: NumType;//Property 'zeroValue' has no initializer and is not definitely assigned in the constructor.
+    zeroValue!: NumType;//=> YUXARIDAKI KIMI ERRORDU 
+    add!: (x: NumType, y: NumType) => NumType;
+    multy: ((x: NumType, y: NumType) => NumType) | undefined;// multy: undefined; nin undefined olmasidi 
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function (x, y) { return x + y };
+myGenericNumber.multy = function (x, y) { return x * y };
